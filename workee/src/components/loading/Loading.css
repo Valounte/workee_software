@@ -1,0 +1,47 @@
+.logo {
+    width: 70%;
+    margin-top: 100px;
+}
+
+.background {
+    background-color: #FF7F27;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.Loading {
+    -webkit-animation-name: fadeInOpacity;
+    animation-name: fadeInOpacity;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+}
+
+.loading-text {
+    font-size: 10vw;
+}
+
+@-webkit-keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
