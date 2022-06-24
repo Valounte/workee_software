@@ -19,6 +19,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "init:armv7": "docker build . -t rust_cross_compile/armv7 -f Dockerfile.armv7",
+    "build:armv7": "react-scripts build && docker run --rm -ti -v `pwd`:/app rust_cross_compile/armv7",
     "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
