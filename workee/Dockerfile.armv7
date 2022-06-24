@@ -17,6 +17,9 @@ RUN apt install -y --no-install-recommends \
 RUN rustup target add armv7-unknown-linux-gnueabihf
 RUN rustup toolchain install stable-armv7-unknown-linux-gnueabihf
 RUN cargo install tauri-cli --git https://github.com/tauri-apps/tauri
+RUN curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+RUN apt update -y
+RUN apt install nodejs -y
 WORKDIR /app
 
 ENV CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc \
