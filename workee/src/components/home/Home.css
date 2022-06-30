@@ -1,12 +1,25 @@
-.logo {
-    width: 70%;
-    margin-top: 100px;
+.logoMenu {
+    width: 150px;
 }
 
-.background {
+.navbar {
     background-color: #FF7F27;
+    padding: 10px;
+}
+.bg-workee {
+    background-color: #FF7F27;
+}
+.hour {
+    margin-left: auto;
+}
+.date {
+    font-weight: bold;
+}
+.background-white {
+    background-color: #FFF;
     height: 100vh;
     width: 100vw;
+    text-align: left;
     position: absolute;
     top: 0;
     left: 0;
