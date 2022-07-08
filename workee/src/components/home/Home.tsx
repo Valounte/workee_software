@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Logo from '../../assets/logo/logo-workee.png';
 import './Home.css';
+import { emit, listen } from '@tauri-apps/api/event'
 
 function Home() {
     const [dateNow, setDateNow] = useState("");
-    
-    useEffect(() => {
-        init();
+    const wifi = useSelector((state: any) => {
+        return state.wifi;
     });
+    useEffect(() => {
+        emit('wifi-status-check', {
+            message: 'Tauri is awesome!'
+        })
+        // listen('wifi-status', (data: any) => {
+        //     console.log(data);
+        // });
+        init();
+    }, []);
 
     const getDate = () => {
         let date = new Date();
