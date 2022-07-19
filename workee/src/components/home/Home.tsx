@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Logo from '../../assets/logo/logo-workee.png';
 import './Home.css';
 import { emit, listen } from '@tauri-apps/api/event'
+import NavBar from "../utils/NavBar/NavBar";
 
 function Home() {
     const [dateNow, setDateNow] = useState("");
@@ -10,9 +10,9 @@ function Home() {
         return state.wifi;
     });
     useEffect(() => {
-        emit('wifi-status-check', {
-            message: 'Tauri is awesome!'
-        })
+        // emit('wifi-status-check', {
+        //     message: 'Tauri is awesome!'
+        // })
         // listen('wifi-status', (data: any) => {
         //     console.log(data);
         // });
@@ -36,18 +36,6 @@ function Home() {
     }
     return (
         <div className="background-white">
-            <nav className="navbar bg-workee">
-                <div className="container-fluid">
-                    <img src={Logo} alt="" className="d-inline-block align-text-top logoMenu"/>
-                    <ul className="navbar-nav hour">
-                    <li className="nav-item">
-                        <span className="date">{dateNow}</span>
-                    </li>
-                    </ul>
-                    <div className="navbar-brand">
-                    </div>
-                </div>
-            </nav>
             <div className="container-fluid">
             <div className="row justify-content-center">
                 <div className="col-3 sphere">

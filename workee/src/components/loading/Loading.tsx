@@ -28,7 +28,7 @@ function Loading() {
             });
         }
         setTimeout(() => {
-            navigate("/home");
+            navigate("/w/config");
         }, 5000)
     };
 

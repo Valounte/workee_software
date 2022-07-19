@@ -17,12 +17,8 @@
 }
 .background-white {
     background-color: #FFF;
-    height: 100vh;
     width: 100vw;
     text-align: left;
-    position: absolute;
-    top: 0;
-    left: 0;
     z-index: -2;
 }
 .sphere {
