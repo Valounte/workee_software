@@ -1,5 +1,4 @@
 use tauri::Manager;
-use log::{info, trace, warn};
 use log4rs;
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -11,15 +10,15 @@ struct Payload {
   windows_subsystem = "windows"
 )]
 
-mod wifi;
+mod modules;
 
 
 fn main() {
   tauri::Builder::default()
   .setup(|app| {
       log4rs::init_file("src/config/log4rs.yaml", Default::default()).unwrap();
-      let wifi = wifi::Wifi::new(app);
-
+      let _wifi = modules::Wifi::new(app);
+      _wifi.get_wifi_status();
       // let id = app.listen_global("wifi-status-check", |event| {
       //   println!("got event-name with payload {:?}", event.payload());
       // });

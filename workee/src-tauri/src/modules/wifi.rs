@@ -1,7 +1,7 @@
 
 use tauri::Manager;
-use log::{error, info, warn};
-use log4rs;
+use log::{info};
+
 pub struct Wifi<'a> {
     app: &'a tauri::App
 }
@@ -19,8 +19,10 @@ impl<'a> Wifi<'a> {
     //     info!(target: "wifi", "Module Wifi initialized");
     // }
 
-    // fn getWifiStatus() {
-    //     println!("Hello, world!");
-    // }
+    pub fn get_wifi_status(&self) {
+        let _id = self.app.listen_global("wifi-status-check", |event| {
+              println!("got event-name with payload {:?}", event.payload());
+        });
+    }
 }
 
