@@ -18,14 +18,14 @@ fn main() {
   .setup(|app| {
       log4rs::init_file("src/config/log4rs.yaml", Default::default()).unwrap();
       let _wifi = modules::Wifi::new(app);
-      _wifi.get_wifi_status();
+      _wifi.init_app_listener();
       // let id = app.listen_global("wifi-status-check", |event| {
       //   println!("got event-name with payload {:?}", event.payload());
       // });
       // unlisten to the event using the `id` returned on the `listen_global` function
       // an `once_global` API is also exposed on the `App` struct
       // app.unlisten(id);
-      app.emit_all("wifi-status", Payload { message: "Tauri is awesome!".into() }).unwrap();
+      // app.emit_all("wifi-status", Payload { message: "Tauri is awesome!".into() }).unwrap();
       Ok(())
     })
     .run(tauri::generate_context!())

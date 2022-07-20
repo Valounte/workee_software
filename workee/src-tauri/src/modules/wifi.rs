@@ -7,20 +7,19 @@ pub struct Wifi<'a> {
 }
 impl<'a> Wifi<'a> {
     pub fn new(app: &'a tauri::App) -> Self {
-        info!("Module Wifi initialized");
+        info!("Module Wifi created");
         Self { 
             app: app 
         }
     }
-    // pub fn new(app) -> Wifi {
-    //     Wifi {
-    //         app: app
-    //     }
-    //     info!(target: "wifi", "Module Wifi initialized");
-    // }
 
-    pub fn get_wifi_status(&self) {
-        let _id = self.app.listen_global("wifi-status-check", |event| {
+    pub fn init_app_listener(&self) {
+        self.scan_wifi();
+    }
+
+    fn scan_wifi(&self) {
+        info!("Listener scan_wifi on");
+        self.app.listen_global("scan-wifi", |event| {
               println!("got event-name with payload {:?}", event.payload());
         });
     }
