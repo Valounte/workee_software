@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import Logo from '../../../assets/logo/logo-workee.png';
 import WifiOff from '../../../assets/wifi/wifi_off.png';
 import './NavBar.css';
-import { emit, listen } from '@tauri-apps/api/event'
 
 function NavBar() {
     const [dateNow, setDateNow] = useState("");
@@ -11,12 +10,6 @@ function NavBar() {
         return state.wifi;
     });
     useEffect(() => {
-        emit('wifi-status-check', {
-            message: 'Tauri is awesome!'
-        })
-        // listen('wifi-status', (data: any) => {
-        //     console.log(data);
-        // });
         init();
     }, []);
 

@@ -5,7 +5,6 @@
     "author": "John Doe <john@doe.com>",
     "dependencies": {
         "@reduxjs/toolkit": "^1.8.3",
-        "@tauri-apps/api": "^1.0.0-rc.5",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.2.0",
         "@testing-library/user-event": "^13.5.0",
@@ -30,7 +29,8 @@
         "eject": "react-scripts eject",
         "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm run electron:start\"",
         "electron:build": "npm run build && electron-builder build -c.extraMetadata.main=build/main.js --linux deb --armv7l",
-        "electron:start": "wait-on tcp:3000 && electron ."
+        "electron:start": "wait-on http://localhost:3000 && electron .",
+        "electron:dev": "electron ."
     },
     "homepage": "./",
     "main": "public/main.js",
@@ -62,7 +62,6 @@
         ]
     },
     "devDependencies": {
-        "@tauri-apps/cli": "^1.0.0-rc.11",
         "concurrently": "^7.3.0",
         "cross-env": "^7.0.3",
         "electron": "^19.0.8",

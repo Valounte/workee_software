@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import './Home.css';
-import { emit, listen } from '@tauri-apps/api/event'
-import NavBar from "../utils/NavBar/NavBar";
 
 function Home() {
     const [dateNow, setDateNow] = useState("");
@@ -10,12 +8,6 @@ function Home() {
         return state.wifi;
     });
     useEffect(() => {
-        // emit('wifi-status-check', {
-        //     message: 'Tauri is awesome!'
-        // })
-        // listen('wifi-status', (data: any) => {
-        //     console.log(data);
-        // });
         init();
     }, []);
 
