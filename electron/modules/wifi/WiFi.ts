@@ -8,6 +8,8 @@ export default class WiFi {
     }
     
     private async getWifi() {
+
+
         if (true) {
             return ([{
                 ssid: "BrangersTV",
@@ -23,7 +25,11 @@ export default class WiFi {
     }
 
     public connectWifi(event, args) {
-        console.log(args);
+        if (args.ssid && args.password === "Test1234") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public initIpc(): void {

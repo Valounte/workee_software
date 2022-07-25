@@ -1,5 +1,7 @@
 
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setWifi } from "../../../../store";
 import { Button } from "../../../ui/button/Button";
 import './Wifi.css';
 
@@ -10,16 +12,28 @@ function Wifi(props: any) {
     const [ssid, setSSID] = useState("");
     const [password, setPassword] = useState("");
 
+    const wifi = useSelector((state: any) => {
+        return state.wifi;
+    });
+    const dispatch = useDispatch();
+
     useEffect(() => {
         getWifiList();
     }, []);
 
     const connectWifi = async () => {
         var win = window as any;
-        console.log(await win.api.connectWifi({
+        let isConnected = await win.api.connectWifi({
             ssid: ssid,
             password: password
-        }));
+        });
+        if (isConnected) {
+            dispatch(setWifi({
+                ssid: ssid,
+                connected: true
+            }))
+            props.nextState();
+        }
     }
 
     const selectSSID = (ssid: string) => {
@@ -61,7 +75,6 @@ function Wifi(props: any) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="wifi-item-password">{wifi.password}</div> */}
                 </div>
             );
             return (

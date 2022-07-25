@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Logo from '../../../assets/logo/logo-workee.png';
 import WifiOff from '../../../assets/wifi/wifi_off.png';
+import WifiOn from '../../../assets/wifi/wifi.png';
 import './NavBar.css';
 
 function NavBar() {
@@ -12,7 +13,9 @@ function NavBar() {
     useEffect(() => {
         init();
     }, []);
-
+    useEffect(() => {
+        console.log(wifi);   
+    }, [wifi]);
     const getDate = () => {
         let date = new Date();
         let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
@@ -34,7 +37,13 @@ function NavBar() {
                     
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <img src={WifiOff} alt="" className="d-inline-block align-text-top wifi"/>
+                            {!wifi.connected === true &&
+                                <img src={WifiOff} alt="" className="d-inline-block align-text-top wifi"/>
+                            }
+                            {wifi.connected === true &&
+                                <img src={WifiOn} alt="" className="d-inline-block align-text-top wifi"/>
+                            }
+                            
                         </li>
                         <li className="nav-item">
                             <span className="date">{dateNow}</span>

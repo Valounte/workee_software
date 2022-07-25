@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/button/Button";
 import './Configuration.css';
 import Wifi from "./wifi/Wifi";
 
 function Configuration() {
     const [state, setState] = useState(-1);
-
+    const navigate = useNavigate();
     const nextState = () => {
         setState(state + 1);
+        if (state === 0) {
+            navigate("/w/home");
+        }
     }
 
     const undoState = () => {
