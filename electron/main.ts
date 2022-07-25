@@ -1,8 +1,10 @@
-import { app, BrowserWindow, protocol, ipcMain } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 
 import path = require("path");
 import url = require("url");
 import isDev = require('electron-is-dev');
+import Logger from './utils/Logger';
+import WiFi from './modules/wifi/WiFi';
 // import { Init } from './init';
 
 export default class Main {
@@ -20,7 +22,14 @@ export default class Main {
         Main.win = null;
     }
 
+    private static launch() {
+        Logger.init();
+        Logger.Info("Appli launched");
+        let wifi = new WiFi();
+    }
+
     private static onReady() {
+        Main.launch();
         this.win = new Main.BrowserWindow({
             width: 640,
             height: 480,

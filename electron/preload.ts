@@ -1,4 +1,7 @@
 // All of the Node.js APIs are available in the preload process.
+
+import { ipcRenderer } from "electron";
+
 // It has the same sandbox as a Chrome extension.
 const { contextBridge } = require("electron");
 
@@ -7,4 +10,7 @@ const { contextBridge } = require("electron");
 // They'll be accessible at "window.versions".
 process.once("loaded", () => {
     contextBridge.exposeInMainWorld("versions", process.versions);
+    contextBridge.exposeInMainWorld('api',{
+        getWifi: () => ipcRenderer.invoke('wifi:get')
+    });
 });

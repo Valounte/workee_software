@@ -6,6 +6,7 @@ import Loading from './components/loading/Loading';
 import Base from './components/base/Base';
 import Home from './components/home/Home';
 import Configuration from './components/base/configuration/Configuration';
+
 function App() {
   return (
     <div className="App">
