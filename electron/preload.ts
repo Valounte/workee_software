@@ -11,6 +11,7 @@ const { contextBridge } = require("electron");
 process.once("loaded", () => {
     contextBridge.exposeInMainWorld("versions", process.versions);
     contextBridge.exposeInMainWorld('api',{
-        getWifi: () => ipcRenderer.invoke('wifi:get')
+        getWifi: () => ipcRenderer.invoke('wifi:get'),
+        connectWifi: (args) => ipcRenderer.invoke('wifi:connect', args)
     });
 });

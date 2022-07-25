@@ -7,9 +7,35 @@ function Wifi(props: any) {
     
     const [wifiList, setWifiList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [ssid, setSSID] = useState("");
+    const [password, setPassword] = useState("");
+
     useEffect(() => {
         getWifiList();
     }, []);
+
+    const connectWifi = async () => {
+        var win = window as any;
+        console.log(await win.api.connectWifi({
+            ssid: ssid,
+            password: password
+        }));
+    }
+
+    const selectSSID = (ssid: string) => {
+        setSSID(ssid);
+        setPassword("");
+    }
+
+    const onChangePassword = (e: any) => {
+        setPassword(e.target.value);
+    }
+
+    const getWifiList = async () => {
+        var win = window as any;
+        setWifiList(await win.api.getWifi());
+        setLoading(false);
+    }
 
     const renderHtmlWifi = () => {
         if (loading) {
@@ -18,22 +44,32 @@ function Wifi(props: any) {
             );
         } else {
             const htmlWifi = wifiList.map((wifi: any) => 
-                <div className="wifi-item" key={wifi.ssid}>
-                    <div className="wifi-item-ssid">{wifi.ssid}</div>
-                    <div className="wifi-item-password">{wifi.password}</div>
+                <div className="accordion-item" key={wifi.ssid}>
+                    <h2 className="accordion-header" id="headTest">
+                    <button onClick={() => selectSSID(wifi.ssid)} className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#" + wifi.ssid} aria-expanded="true" aria-controls="collapseOne">
+                            <span className="wifi-item-ssid">{wifi.ssid} {wifi.signal_strength} dB</span>
+                        </button>
+                    </h2>
+                    <div id={wifi.ssid} className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                        <div className="accordion-body row align-items-center">
+                            <label className="col-6">
+                                Clé de sécurité {wifi.security} :<br/>
+                                <input value={password} onChange={onChangePassword} type="password" name="password" />
+                            </label>
+                            <div className="col-6">
+                                <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">Se connecter</Button>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="wifi-item-password">{wifi.password}</div> */}
                 </div>
             );
             return (
-               <div>{htmlWifi}</div> 
+                <div className="accordion" id="accordion">
+                    {htmlWifi}
+                </div>
             )
         }
-    }
-
-
-    const getWifiList = async () => {
-        var win = window as any;
-        setWifiList(await win.api.getWifi());
-        setLoading(false);
     }
     return (
         <div className={props}>
@@ -45,12 +81,10 @@ function Wifi(props: any) {
                     }
                 </div>
                 <footer className="row footerConfig">
-                        <div className="col-6">
+                        <div className="col-12">
                             <Button click={props.undoState} type="workee">Retour</Button>
                         </div>
-                        <div className="col-6">
-                            <Button click={props.nextState} type="workee">Suivant</Button>
-                        </div>
+                        
                 </footer>
             </div>
         </div>
