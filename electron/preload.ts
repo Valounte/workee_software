@@ -12,6 +12,8 @@ process.once("loaded", () => {
     contextBridge.exposeInMainWorld("versions", process.versions);
     contextBridge.exposeInMainWorld('api',{
         getWifi: () => ipcRenderer.invoke('wifi:get'),
-        connectWifi: (args) => ipcRenderer.invoke('wifi:connect', args)
+        connectWifi: (args) => ipcRenderer.invoke('wifi:connect', args),
+        getData: (args) => ipcRenderer.invoke('data:get', args),
+        setData: (args) => ipcRenderer.invoke('data:set', args),
     });
 });

@@ -5,6 +5,7 @@ import url = require("url");
 import isDev = require('electron-is-dev');
 import Logger from './utils/Logger';
 import WiFi from './modules/wifi/WiFi';
+import Data from './modules/data/Data';
 // import { Init } from './init';
 
 export default class Main {
@@ -26,6 +27,7 @@ export default class Main {
         Logger.init();
         Logger.Info("Appli launched");
         let wifi = new WiFi();
+        Data.initIpc();
     }
 
     private static onReady() {
@@ -33,7 +35,11 @@ export default class Main {
         this.win = new Main.BrowserWindow({
             width: 640,
             height: 480,
+            resizable : false,
+            title: "Workee",
+            frame: false,
             webPreferences: {
+                devTools: isDev,
                 nodeIntegration: true,
                 preload: path.join(__dirname, "preload.js"),
             }

@@ -2,18 +2,30 @@ import React from "react";
 import Logo from '../../assets/logo/logo-workee.png';
 import './Loading.css';
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setWifi } from "../../store";
 function Loading() {
     const navigate = useNavigate();
-
-    
+    const dispatch = useDispatch();
     const createDataFile = async () => {
-        setTimeout(() => {
-            navigate("/w/config");
+        setTimeout(async () => {
+            var win = window as any;
+            let wifi = await win.api.getData("wifi");
+            if (wifi) {
+                dispatch(setWifi({
+                    ssid: wifi.ssid,
+                    connected: true
+                }));
+            }
+            if (await win.api.getData("ready")) {
+                navigate("/w/home");
+            } else {
+                navigate("/w/config");
+            }
         }, 5000)
     };
 
-    const init = () => {
+    const init = async () => {
         createDataFile();
     }
 

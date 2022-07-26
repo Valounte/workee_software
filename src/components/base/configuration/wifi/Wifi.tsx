@@ -11,7 +11,7 @@ function Wifi(props: any) {
     const [loading, setLoading] = useState(true);
     const [ssid, setSSID] = useState("");
     const [password, setPassword] = useState("");
-
+    const [wifiConnectLoading, setWifiConnectLoading] = useState(false);
     const wifi = useSelector((state: any) => {
         return state.wifi;
     });
@@ -23,10 +23,12 @@ function Wifi(props: any) {
 
     const connectWifi = async () => {
         var win = window as any;
+        setWifiConnectLoading(true);
         let isConnected = await win.api.connectWifi({
             ssid: ssid,
             password: password
         });
+        setWifiConnectLoading(false);
         if (isConnected) {
             dispatch(setWifi({
                 ssid: ssid,
@@ -71,7 +73,9 @@ function Wifi(props: any) {
                                 <input value={password} onChange={onChangePassword} type="password" name="password" />
                             </label>
                             <div className="col-6">
-                                <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">Se connecter</Button>
+                                <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">
+                                    {wifiConnectLoading ? <i className="fa-solid fa-circle-notch fa-spin"></i> : "Connexion"}
+                                </Button>
                             </div>
                         </div>
                     </div>
