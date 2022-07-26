@@ -61,13 +61,13 @@ function Wifi(props: any) {
                 <div className="accordion-item" key={wifi.ssid}>
                     <h2 className="accordion-header" id="headTest">
                     <button onClick={() => selectSSID(wifi.ssid)} className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#" + wifi.ssid} aria-expanded="true" aria-controls="collapseOne">
-                            <span className="wifi-item-ssid">{wifi.ssid} {wifi.signal_strength} dB</span>
+                            <span className="wifi-item-ssid">{wifi.ssid} {wifi.signal} dB</span>
                         </button>
                     </h2>
                     <div id={wifi.ssid} className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                         <div className="accordion-body row align-items-center">
                             <label className="col-6">
-                                Clé de sécurité {wifi.security} :<br/>
+                                Clé de sécurité {wifi.flags} :<br/>
                                 <input value={password} onChange={onChangePassword} type="password" name="password" />
                             </label>
                             <div className="col-6">
