@@ -14,13 +14,13 @@ export default class WiFi {
     constructor() {
         Logger.Info("Wifi module loaded");
 
-        this.checkStatusWifi();
+        WiFi.checkStatusWifi();
 
         this.initIpc();
         
     }
  
-    private async checkStatusWifi() {
+    private static async checkStatusWifi() {
         let wifi = await Command.execute("wpa_cli status");
         try {
             let line3 = wifi.split("\n")[3];
@@ -30,15 +30,14 @@ export default class WiFi {
                 await Data.setSaveData("wifi", {
                     ssid: ssid[1]
                 })
-                Data.delSaveData("ready");
+                return true;
             } else {
                 console.log("No wifi connection");
-                Data.delSaveData("ready");
                 Data.delSaveData("wifi");
+                return false;
             }
         } catch (e) {
             console.log("No wifi connection");
-            Data.delSaveData("ready");
             Data.delSaveData("wifi");
 
         }
@@ -52,7 +51,7 @@ export default class WiFi {
 
     private async getWifi() {
         let wifiAvailableList = [];
-        var wifiscan = (isDev) ? `bssid / frequency / signal level / flags / ssid
+        var wifiscan = (!isDev) ? `bssid / frequency / signal level / flags / ssid
 f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi();
         
         
@@ -84,10 +83,13 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi()
             console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
             console.log(await Command.execute("wpa_cli enable_network 0"));
             console.log(await Command.execute("wpa_cli select_network 0"));
-            await Data.setSaveData("wifi", args);
-            await Data.setSaveData("ready", true);
             await timeout(5000);
-            return true;
+            if (WiFi.checkStatusWifi()) {
+                await Data.setSaveData("wifi", args);
+                await Data.setSaveData("ready", true);
+                return true;
+            }
+            return false;
         } else {
             return false;
         }
