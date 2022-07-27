@@ -3,6 +3,7 @@ import Command from "../../utils/Command";
 import Logger from "../../utils/Logger";
 import isDev = require('electron-is-dev');
 import Data from "../data/Data";
+import { time } from "console";
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -12,20 +13,54 @@ function timeout(ms) {
 export default class WiFi {
     constructor() {
         Logger.Info("Wifi module loaded");
+
+        this.checkStatusWifi();
+
         this.initIpc();
         
+    }
+ 
+    private async checkStatusWifi() {
+        let wifi = await Command.execute("wpa_cli status");
+        try {
+            let line3 = wifi.split("\n")[3];
+            let ssid = line3.split("=");
+
+            if (ssid[0] === "ssid") {
+                await Data.setSaveData("wifi", {
+                    ssid: ssid[1]
+                })
+                Data.delSaveData("ready");
+            } else {
+                console.log("No wifi connection");
+                Data.delSaveData("ready");
+                Data.delSaveData("wifi");
+            }
+        } catch (e) {
+            console.log("No wifi connection");
+            Data.delSaveData("ready");
+            Data.delSaveData("wifi");
+
+        }
+    }
+
+    static async launchWifi() {
+        await Command.execute("wpa_cli -i wlp58s0 scan")
+        await timeout(2000)
+        return await Command.execute("wpa_cli scan_results");
     }
 
     private async getWifi() {
         let wifiAvailableList = [];
         var wifiscan = (isDev) ? `bssid / frequency / signal level / flags / ssid
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await Command.execute("wpa_cli -i wlan0 scan") ;
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi();
         
         
         wifiscan = wifiscan.replace(/\t/g, " ");
         var listwifi = wifiscan.split("\n");
 
         for (let i = 1; i < listwifi.length; i++) {
+            console.log(listwifi);
             let wifi = listwifi[i];
             let wifiinfo = wifi.split(" ");
             let wifiobj = {
@@ -42,10 +77,16 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await Command.execute("
     }
 
     public async connectWifi(event, args) {
-        await timeout(5000);
-        if (args.ssid && args.password === "Test1234") {
+        if (args.ssid && args.password) {
+            console.log(await Command.execute("wpa_cli remove_network 0"));
+            console.log(await Command.execute("wpa_cli add_network"));
+            console.log(await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'"));
+            console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
+            console.log(await Command.execute("wpa_cli enable_network 0"));
+            console.log(await Command.execute("wpa_cli select_network 0"));
             await Data.setSaveData("wifi", args);
             await Data.setSaveData("ready", true);
+            await timeout(5000);
             return true;
         } else {
             return false;

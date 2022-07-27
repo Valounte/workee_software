@@ -17,11 +17,11 @@ function Loading() {
                     connected: true
                 }));
             }
-            if (await win.api.getData("ready")) {
-                navigate("/w/home");
-            } else {
+            // if (await win.api.getData("ready")) {
+            //     navigate("/w/home");
+            // } else {
                 navigate("/w/config");
-            }
+            // }
         }, 5000)
     };
 

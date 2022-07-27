@@ -16,6 +16,10 @@ export default class Data {
         return await settings.set(key, args);
     }
 
+    public static async delSaveData(key) {
+        return await settings.unset(key);
+    }
+
     public static async getData(event, args) {
         return await Data.getSaveData(args);
     }
