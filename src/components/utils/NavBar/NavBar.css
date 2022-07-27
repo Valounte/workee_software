@@ -6,17 +6,23 @@
     background-color: #FF7F27;
     padding: 10px;
 }
+
 .bg-workee {
     background-color: #FF7F27;
 }
+
 .hour {
     margin-left: auto;
 }
+
 .date {
     font-weight: bold;
     display: block;
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 }
+
 .wifi {
-    width: 40px;
+    width: 35px;
+    padding: 5px;
+    margin-right: 5px;
 }

@@ -4,6 +4,7 @@ import Logger from "../../utils/Logger";
 import isDev = require('electron-is-dev');
 import Data from "../data/Data";
 import { time } from "console";
+import { Config } from "../../config";
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -30,14 +31,15 @@ export default class WiFi {
                 await Data.setSaveData("wifi", {
                     ssid: ssid[1]
                 })
+                Logger.Info("Wifi connected to " + ssid[1]);
                 return true;
             } else {
-                console.log("No wifi connection");
+                Logger.Warn("Wifi not connected");
                 Data.delSaveData("wifi");
                 return false;
             }
         } catch (e) {
-            console.log("No wifi connection");
+            Logger.Warn("Wifi not connected");
             Data.delSaveData("wifi");
 
         }
@@ -51,7 +53,7 @@ export default class WiFi {
 
     private async getWifi() {
         let wifiAvailableList = [];
-        var wifiscan = (!isDev) ? `bssid / frequency / signal level / flags / ssid
+        var wifiscan = (Config.isWindows) ? `bssid / frequency / signal level / flags / ssid
 f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi();
         
         
@@ -59,7 +61,6 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi()
         var listwifi = wifiscan.split("\n");
 
         for (let i = 1; i < listwifi.length; i++) {
-            console.log(listwifi);
             let wifi = listwifi[i];
             let wifiinfo = wifi.split(" ");
             let wifiobj = {
@@ -77,19 +78,26 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi()
 
     public async connectWifi(event, args) {
         if (args.ssid && args.password) {
-            console.log(await Command.execute("wpa_cli remove_network 0"));
-            console.log(await Command.execute("wpa_cli add_network"));
-            console.log(await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'"));
-            console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
-            console.log(await Command.execute("wpa_cli enable_network 0"));
-            console.log(await Command.execute("wpa_cli select_network 0"));
-            await timeout(5000);
-            if (WiFi.checkStatusWifi()) {
+            if (!Config.isWindows) {
+                await Command.execute("wpa_cli remove_network 0");
+                await Command.execute("wpa_cli add_network");
+                await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'");
+                await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'");
+                await Command.execute("wpa_cli enable_network 0");
+                await Command.execute("wpa_cli select_network 0");
+                await timeout(5000);
+                if (WiFi.checkStatusWifi()) {
+                    await Data.setSaveData("wifi", args);
+                    await Data.setSaveData("ready", true);
+                    return true;
+                }
+                
+                return false;
+            } else {
                 await Data.setSaveData("wifi", args);
                 await Data.setSaveData("ready", true);
                 return true;
             }
-            return false;
         } else {
             return false;
         }

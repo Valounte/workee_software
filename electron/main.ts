@@ -35,9 +35,9 @@ export default class Main {
         this.win = new Main.BrowserWindow({
             width: 640,
             height: 480,
-            resizable : false,
+            resizable : isDev,
             title: "Workee",
-            frame: false,
+            frame: isDev,
             webPreferences: {
                 devTools: isDev,
                 nodeIntegration: true,
