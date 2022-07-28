@@ -2,7 +2,7 @@ import React from "react";
 import Logo from '../../assets/logo/logo-workee.png';
 import './Loading.css';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setWifi } from "../../store";
 function Loading() {
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Loading() {
     return (
         <div className="background">
             <div className="Loading">
-                <img className="logo" src={Logo}/>
+                <img alt="logo" className="logo" src={Logo}/>
                 <div className="loading-text">
                     <i className="fa-solid fa-circle-notch fa-spin"></i>
                 </div>

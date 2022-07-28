@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setWifi } from "../../../../store";
 import { Button } from "../../../ui/button/Button";
 import './Wifi.css';
@@ -12,9 +12,6 @@ function Wifi(props: any) {
     const [ssid, setSSID] = useState("");
     const [password, setPassword] = useState("");
     const [wifiConnectLoading, setWifiConnectLoading] = useState(false);
-    const wifi = useSelector((state: any) => {
-        return state.wifi;
-    });
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -10,9 +10,12 @@ function NavBar() {
     const wifi = useSelector((state: any) => {
         return state.wifi;
     });
+    
     useEffect(() => {
         init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     useEffect(() => {
         console.log(wifi);   
     }, [wifi]);

@@ -33,8 +33,8 @@ export default class Main {
     private static onReady() {
         Main.launch();
         this.win = new Main.BrowserWindow({
-            width: 640,
-            height: 480,
+            width: 800,
+            height: 400,
             resizable : isDev,
             fullscreen: !isDev,
             title: "Workee",
