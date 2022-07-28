@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './Home.css';
 
 function Home() {
     const [dateNow, setDateNow] = useState("");
-    const wifi = useSelector((state: any) => {
-        return state.wifi;
-    });
+    
     useEffect(() => {
         init();
     }, []);

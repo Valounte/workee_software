@@ -4,7 +4,7 @@ const wifi = createSlice({
   name: 'wifi',
   initialState: {
     ssid: '',
-    connected: true
+    connected: false
   },
   reducers: {
     setWifi: (state, action) => {
@@ -13,6 +13,8 @@ const wifi = createSlice({
     }
   }
 });
+
+export const setWifi = wifi.actions.setWifi;
 
 export const store = configureStore({
   reducer: {

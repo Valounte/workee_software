@@ -40,6 +40,6 @@ export const Button = (props: any) => {
     }, [props.type]);
 
     return (
-        <button onClick={props.click} type="button" className={style}>{props.children}</button>
+        <button {...props} onClick={props.click} type="button" className={style + " " + props.className}>{props.children}</button>
     )
 }

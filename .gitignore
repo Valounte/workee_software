@@ -10,7 +10,7 @@
 /workee
 # production
 /build
-
+/electron/config.ts
 # misc
 .DS_Store
 .env.local
