@@ -46,7 +46,7 @@ export default class WiFi {
     }
 
     static async launchWifi() {
-        await Command.execute("wpa_cli -i scan")
+        await Command.execute("wpa_cli scan")
         await timeout(2000)
         return await Command.execute("wpa_cli scan_results");
     }
