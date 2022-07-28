@@ -36,7 +36,7 @@ export default class Main {
             width: 640,
             height: 480,
             resizable : isDev,
-            fullscreen: isDev,
+            fullscreen: !isDev,
             title: "Workee",
             frame: isDev,
             webPreferences: {
