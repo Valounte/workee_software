@@ -34,7 +34,7 @@ export default class Main {
         Main.launch();
         this.win = new Main.BrowserWindow({
             width: 800,
-            height: 400,
+            height: 480,
             resizable : isDev,
             fullscreen: !isDev,
             title: "Workee",

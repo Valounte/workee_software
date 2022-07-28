@@ -79,12 +79,12 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi()
     public async connectWifi(event, args) {
         if (args.ssid && args.password) {
             if (!Config.isWindows) {
-                await Command.execute("wpa_cli remove_network 0");
-                await Command.execute("wpa_cli add_network");
-                await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'");
-                await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'");
-                await Command.execute("wpa_cli enable_network 0");
-                await Command.execute("wpa_cli select_network 0");
+                console.log(await Command.execute("wpa_cli remove_network 0"));
+                console.log(await Command.execute("wpa_cli add_network"));
+                console.log(await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'"));
+                console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
+                console.log(await Command.execute("wpa_cli enable_network 0"));
+                console.log(await Command.execute("wpa_cli select_network 0"));
                 await timeout(5000);
                 if (WiFi.checkStatusWifi()) {
                     await Data.setSaveData("wifi", args);
