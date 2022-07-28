@@ -17,6 +17,6 @@ jobs:
     - name: install dependencies
       run: npm install
     - name: copy config.ts
-      run: cp electron/config.ts.template electron.config.ts
+      run: cp electron/config.ts.template electron/config.ts
     - name: build application
       run: npm run electron:build
