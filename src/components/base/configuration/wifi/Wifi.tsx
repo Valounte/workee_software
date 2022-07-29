@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWifi } from "../../../../store";
 import { Button } from "../../../ui/button/Button";
+import { Input } from "../../../ui/input/Input";
 import './Wifi.css';
 
 function Wifi(props: any) {
@@ -67,7 +68,7 @@ function Wifi(props: any) {
                         <div className="accordion-body row align-items-center">
                             <label className="col-6">
                                 Clé de sécurité {wifi.flags} :<br/>
-                                <input value={password} onChange={onChangePassword} type="password" name="password" />
+                                <Input setCustom={setPassword} value={password} onChange={onChangePassword} type="password" name="password" />
                             </label>
                             <div className="col-6">
                                 <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">
