@@ -6,8 +6,16 @@ import Loading from './components/loading/Loading';
 import Base from './components/base/Base';
 import Home from './components/home/Home';
 import Configuration from './components/base/configuration/Configuration';
+import Keyboard from "react-simple-keyboard"
+import { useSelector } from 'react-redux';
 
 function App() {
+  const keyboard = useSelector((state: any) => {
+    return state.keyboard;
+  });
+  const onChange = (input: String) => {
+    keyboard.props.setCustom(input);
+  }
   return (
     <div className="App">
       <Routes>
@@ -17,6 +25,10 @@ function App() {
           <Route path="config" element={<Configuration/>} />
         </Route>
       </Routes>
+      {keyboard.keyboardActivate && 
+                <div className="keyboard">
+                    <Keyboard className="" onChange={onChange}/>
+                </div>}
     </div>
   );
 }
