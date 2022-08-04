@@ -54,7 +54,12 @@ export default class WiFi {
     private async getWifi() {
         let wifiAvailableList = [];
         var wifiscan = (Config.isWindows) ? `bssid / frequency / signal level / flags / ssid
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman`: await WiFi.launchWifi();
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman111
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman11
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman1
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman3
+f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi();
         
         
         wifiscan = wifiscan.replace(/\t/g, " ");

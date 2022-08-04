@@ -1,26 +1,35 @@
-import { useEffect, useState } from "react";
-import Keyboard from "react-simple-keyboard"
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import 'react-simple-keyboard/build/css/index.css';
+import { keyboardF } from "../../../store";
 import './Input.css';
 export const Input = (props: any) => {
-    const [keyboard, showKeyboard] = useState(false);
-    console.log(props)
-    const onChange = (input: String) => {
-        props.setCustom(input);
-    }
+    const keyboardSave = useRef();
+    const dispatch = useDispatch();
 
-    const onFocus = () => {
-        showKeyboard(true);
+    const onFocus = async (e: any) => {
+      console.log(e.target.offsetTop);
+      setTimeout(() => {
+        dispatch(keyboardF.setKeyboard({
+            keyboard: true,
+            props: props
+        }));
+      }, 100);
+      setTimeout(() => {
+        window.scrollTo(0, e.target.offsetTop);
+      }, 200);
     }
 
     useEffect(() => {
         function clickHanlder(e: any) {
-            console.log(e.target.nodeName);
-          if (
-            !(e.target.nodeName === "INPUT") &&
+          if (!(e.target.nodeName === "INPUT") &&
             !e.target.classList.contains("hg-button")
           ) {
-            showKeyboard(false);
+            dispatch(keyboardF.setKeyboard({
+              keyboard: false,
+              props: {}
+          }));
           }
         }
     
@@ -29,9 +38,8 @@ export const Input = (props: any) => {
       }, []);
 
     return (
-        <div >
+        <div>
             <input onFocus={onFocus} {...props} />
-            {keyboard && <Keyboard className="keyboard" onChange={onChange}/>}
         </div>
     )
 }

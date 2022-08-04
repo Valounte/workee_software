@@ -66,11 +66,11 @@ function Wifi(props: any) {
                     </h2>
                     <div id={wifi.ssid} className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                         <div className="accordion-body row align-items-center">
-                            <label className="col-6">
+                            <label className="col-12">
                                 Clé de sécurité {wifi.flags} :<br/>
                                 <Input setCustom={setPassword} value={password} onChange={onChangePassword} type="password" name="password" />
                             </label>
-                            <div className="col-6">
+                            <div className="col-12">
                                 <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">
                                     {wifiConnectLoading ? <i className="fa-solid fa-circle-notch fa-spin"></i> : "Connexion"}
                                 </Button>
@@ -80,7 +80,7 @@ function Wifi(props: any) {
                 </div>
             );
             return (
-                <div className="accordion" id="accordion">
+                <div className="accordion wifiList" id="accordion">
                     {htmlWifi}
                 </div>
             )
@@ -90,7 +90,7 @@ function Wifi(props: any) {
         <div className={props}>
             <div className="container-fluid text-center">
                 <div className="h1">Configuration du Wifi</div>
-                <div className="container-fluid">
+                <div className="">
                     {
                         renderHtmlWifi()
                     }
