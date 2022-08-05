@@ -1,5 +1,6 @@
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "../../login/Login";
 import { Button } from "../../ui/button/Button";
 import './Configuration.css';
 import Wifi from "./wifi/Wifi";
@@ -9,7 +10,7 @@ function Configuration() {
     const navigate = useNavigate();
     const nextState = () => {
         setState(state + 1);
-        if (state === 0) {
+        if (state === 1) {
             navigate("/w/home");
         }
     }
@@ -22,6 +23,10 @@ function Configuration() {
         case 0:
             return (
                 <Wifi undoState={undoState} nextState={nextState} />
+            );
+            case 1:
+            return (
+                <Login undoState={undoState} nextState={nextState} />
             );
         default:
             return (
