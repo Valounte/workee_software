@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export const Notification = (props: any) => {
 
@@ -14,7 +13,7 @@ export const Notification = (props: any) => {
         if (eventSource.current) {
             eventSource.current.close();
         }
-        url.searchParams.append("topic", "https://mercure.brangers.eu/notification");
+        url.searchParams.append("topic", props.config.topic);
         eventSource.current = new EventSource(url);
         eventSource.current.onmessage = (event: MessageEvent) => {
             let data = JSON.parse(event.data);
@@ -24,7 +23,7 @@ export const Notification = (props: any) => {
                 setPrintAlert(false);
             }, 5000);
         }
-    }, [props.config.urlList]);
+    }, [props.config.topic, url]);
 
     return (
         <div>

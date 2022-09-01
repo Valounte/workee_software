@@ -16,12 +16,12 @@ function Wifi(props: any) {
     const [password, setPassword] = useState("");
     const [wifiConnectLoading, setWifiConnectLoading] = useState(false);
     const dispatch = useDispatch();
-    const [html, setHtml] = useState([<div></div>]);
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
+      selectSSID(panel);
     };
 
     useEffect(() => {

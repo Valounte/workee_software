@@ -1,0 +1,7 @@
+export const Config = {
+    url: 'http://localhost:8081',
+    mercure: {
+        url: 'http://localhost:3000/.well-known/mercure',
+        topic: 'http://localhost:8081/notification'
+    }
+}

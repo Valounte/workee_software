@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import 'react-simple-keyboard/build/css/index.css';
 import { keyboardF } from "../../../store";
 import { TextField } from "../../../ui-kit/components/TextField/TextField";
 import './Input.css';
-import $ from "jquery";
 export const Input = (props: any) => {
-    const keyboardSave = useRef();
     const dispatch = useDispatch();
 
     const onFocus = async (e: any) => {
@@ -37,6 +35,7 @@ export const Input = (props: any) => {
     
         window.addEventListener("click", clickHanlder);
         return window.removeEventListener("click", clickHanlder, true);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
     return (
