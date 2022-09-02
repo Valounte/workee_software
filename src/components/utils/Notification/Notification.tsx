@@ -1,4 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Config } from "../../../Config";
+import { setMessage } from "../../../store/notificationStore";
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 export const Notification = (props: any) => {
 
@@ -6,31 +11,29 @@ export const Notification = (props: any) => {
 
     let eventSource = useRef<EventSource>();
 
-    const [printAlert, setPrintAlert] = useState(false);
-    const [message, setMessage] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (eventSource.current) {
             eventSource.current.close();
         }
-        url.searchParams.append("topic", props.config.topic);
+        if (Config.mercure.fakeJwt) {
+            url.searchParams.append("topic", props.config.topic);
+        } else {
+            url.searchParams.append("topic", props.config.topic);
+        }
         eventSource.current = new EventSource(url);
         eventSource.current.onmessage = (event: MessageEvent) => {
             let data = JSON.parse(event.data);
-            setMessage(data.message);
-            setPrintAlert(true);
-            setTimeout(() => {
-                setPrintAlert(false);
-            }, 5000);
+            dispatch(setMessage(data))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.config.topic, url]);
 
     return (
         <div>
-            {printAlert && <div className="alert alert-primary" role="alert">
-                {message}
-            </div>}
             {props.children}
+            <ToastContainer className="notif" />
         </div>
         );
 };

@@ -26,3 +26,8 @@
     padding: 5px;
     margin-right: 5px;
 }
+
+.Toastify__toast-container--top-right {
+    top: 60px!important;
+    right: 0px!important;
+}

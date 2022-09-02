@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { Config } from '../Config';
 
 export const notification = createSlice({
     name: 'notification',
     initialState: {
-      topic: "https://mercure.brangers.eu/notification",
-      url: "https://mercure.brangers.eu/.well-known/mercure",
-      message: ''
+      topic: Config.mercure.topic,
+      url: Config.mercure.url,
+      message: null,
     },
     reducers: {
       setTopic: (state, action) => {
@@ -18,3 +19,4 @@ export const notification = createSlice({
 });
 
 export const setTopic = notification.actions.setTopic;
+export const setMessage = notification.actions.setMessage;

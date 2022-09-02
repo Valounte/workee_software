@@ -6,6 +6,7 @@ import WifiOn from '../../../assets/wifi/wifi.png';
 import './NavBar.css';
 import Bell from "./Bell/Bell";
 import { setTopic } from "../../../store/notificationStore";
+import { Config } from "../../../Config";
 
 function NavBar() {
     const [dateNow, setDateNow] = useState(""),
@@ -31,7 +32,7 @@ function NavBar() {
 
     const init = () => {
         setDateNow(getDate());
-        dispatch(setTopic("https://mercure.brangers.eu/notification/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiY29tcGFueSI6MX0.eOe0BAe5N9aCCdwB7ETFrrOpQaHSWJUsejayELA-SmU"));
+        dispatch(setTopic(Config.mercure.topic + "/" + Config.mercure.fakeJwt));
         setInterval(() => {
             setDateNow(getDate());
         }, 1000);

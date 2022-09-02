@@ -1,0 +1,173 @@
+.div-counter {
+    position: absolute;
+}
+
+.pastille {
+    background-color: white;
+    padding: 0px 4px 0px 4px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: bold;
+    position: relative;
+    left: 8px;
+    top: -3px;
+    z-index: 10;
+}
+/* .bell {
+    width: 30px;
+    padding: 5px;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+} */
+
+.bell .material-icons { 
+    /* font-size:12rem !important; */
+    /* font-size:36px !important; */
+    font-size:25px !important;
+  }
+  
+  .bell {
+    position:relative;
+    display:inline-block;  
+    /* border:dashed 1px rgba(0,0,0,.25); */
+    margin:0;
+    padding:0; 
+    left: -5px;
+    top: 7px; 
+  }
+  
+  .bell .anchor {
+    transform-origin:center top;
+    display:inline-block;
+    margin:0;
+    padding:0;       
+  }
+  
+  .animation-1 {
+    animation: animation-layer-1 2000ms ; 
+  }
+
+  .animation-2 {
+    animation: animation-layer-2 2000ms ; 
+  }
+  
+  .animation-3 {
+    animation: animation-layer-3 2000ms ; 
+  }
+
+  .bell .layer-1 {
+    color:#1d1e22;
+    z-index:9;    
+    opacity:0;  
+  }
+
+  .bell .layer-2 {
+    color:#1d1e22;
+    z-index:8;
+    position:absolute;top:0;left:0;   
+       
+  }
+  
+  .bell .layer-3 {
+    color:#333642;
+    z-index:7;
+    position:absolute;top:0;left:0;   
+  }
+  
+  @keyframes animation-layer-1 {
+    0% { transform: rotate(0deg);opacity:0; }
+    8.0% { transform: rotate(0deg);opacity:0; }
+    12.0% { transform: rotate(42deg);opacity:.5; }
+    16.0% { transform: rotate(-35deg);opacity:.4; }
+    20.0% { transform: rotate(0deg);opacity:.1; }
+    23.0% { transform: rotate(28deg);opacity:.3; }
+    26.0% { transform: rotate(-20deg);opacity:.2; }
+    29.0% { transform: rotate(0deg);opacity:.1; }
+    31.0% { transform: rotate(16deg);opacity:0; }
+    33.0% { transform: rotate(-12deg);opacity:0; }
+    35.0% { transform: rotate(0deg);opacity:0; }	
+    37.0% { transform: rotate(-6deg);opacity:0; }
+    39.0% { transform: rotate(0deg);opacity:0; }
+  }
+  
+  @keyframes animation-layer-2 {
+    0% { transform: rotate(0deg); }
+    8.0% { transform: rotate(0deg); }
+    12.0% { transform: rotate(42deg); }
+    16.0% { transform: rotate(-35deg); }
+    20.0% { transform: rotate(0deg); }
+    23.0% { transform: rotate(28deg); }
+    26.0% { transform: rotate(-20deg); }
+    29.0% { transform: rotate(0deg); }
+    31.0% { transform: rotate(16deg); }
+    33.0% { transform: rotate(-12deg); }
+    35.0% { transform: rotate(0deg); }	
+    37.0% { transform: rotate(-6deg); }
+    39.0% { transform: rotate(0deg); }
+    40.0% { transform: rotate(6deg); }
+    44.0% { transform: rotate(-3deg); }
+    49.0% { transform: rotate(2deg);}
+    55.0% { transform: rotate(0deg); }
+    62.0% { transform: rotate(1deg); }
+    70.0% { transform: rotate(0deg); }  
+  }
+  
+  @keyframes animation-layer-3 {
+    0% { transform: rotate(0deg);opacity:1; }
+    8.0% { transform: rotate(0deg);opacity:1; }
+    12.0% { transform: rotate(52deg);opacity:.5; }
+    16.0% { transform: rotate(-48deg);opacity:.4; }
+    20.0% { transform: rotate(0deg);opacity:1; }
+    23.0% { transform: rotate(42deg);opacity:.3; }
+    26.0% { transform: rotate(-30deg);opacity:.2; }
+    29.0% { transform: rotate(0deg);opacity:1; }
+    31.0% { transform: rotate(26deg);opacity:.15; }
+    33.0% { transform: rotate(-18deg);opacity:.1; }
+    35.0% { transform: rotate(0deg);opacity:1; }	
+    37.0% { transform: rotate(-12deg);opacity:.8; }
+    40.0% { transform: rotate(6deg);opacity:1; }
+    44.0% { transform: rotate(-3deg);opacity:.8; }
+    49.0% { transform: rotate(2deg);opacity:1; }
+    55.0% { transform: rotate(0deg);opacity:1; }
+    62.0% { transform: rotate(1deg);opacity:1; }
+    70.0% { transform: rotate(0deg);opacity:1; }
+  }
+
+
+  .chat {
+    color: dodgerblue;
+  }
+
+  .warning {
+    color: #f1c40f;
+  }
+
+  .report {
+    color: #e74c3c;
+  }
+
+  .information-toast {
+    text-align: left;
+    font-size: 12px;
+    margin-top: -15px;
+    margin-bottom: 5px;
+    
+  }
+  .icon-toast {
+    position: relative;
+    top: 8px;
+    margin-right: 5px;
+  }
+  .message-toast-user {
+    text-align: left;
+    font-size: 14px;
+    color: black;
+  }
+  .message-toast {
+    text-align: left;
+    font-size: 14px;
+  }
+  .toast-class {
+    color: var(--toastify-text-color-light);
+  }
