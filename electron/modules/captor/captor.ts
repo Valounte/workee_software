@@ -16,9 +16,10 @@ export default class Captor {
         var obj;
         try {
             obj = JSON.parse(message);
-            this.win.webContents.send('getTemperatureHumitidy', obj);
+            Logger.Info("Temp: " + obj.temp + " Hum: " + obj.humitidy);
+            // this.win.webContents.send('getTemperatureHumitidy', obj);
         } catch (e) {
-            Logger.Error("Captor not send data");
+            Logger.Warn("Captor not send data");
         }
     }
 }
