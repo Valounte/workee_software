@@ -26,7 +26,8 @@ function Configuration() {
             );
             case 1:
             return (
-                <Login undoState={undoState} nextState={nextState} />
+                // <Login undoState={undoState} nextState={nextState} /> 
+                <Login />
             );
         default:
             return (
