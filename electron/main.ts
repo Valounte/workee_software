@@ -11,7 +11,7 @@ import Captor from './modules/captor/captor';
 // import { Init } from './init';
 
 export default class Main {
-    public static win: Electron.BrowserWindow | null;
+    static win: Electron.BrowserWindow | null;
     static application: Electron.App;
     static BrowserWindow: any;
     private static onWindowAllClosed() {
@@ -55,8 +55,8 @@ export default class Main {
                 slashes: true,
             }) :
             (Config.urlApp) ? Config.urlApp : "http://localhost:3000";
-        if (this.win) {
-            this.win.loadURL(appURL);
+        if (Main.win) {
+            Main.win.loadURL(appURL);
         }
         
         // Automatically open Chrome's DevTools in development mode.
