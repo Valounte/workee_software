@@ -7,7 +7,13 @@ export default class Captor {
         this.captorTempHum = new PythonShell("/home/brangers/test.py");
         Logger.Info("Captor module loaded");
         this.captorTempHum.on('message', function(message) {
-            console.log(message);
+            var obj;
+            try {
+                obj = JSON.parse(message);
+                console.log(obj);
+            } catch (e) {
+                console.log(e);
+            }
           })
           this.captorTempHum.end(function (err) {
             if (err){
