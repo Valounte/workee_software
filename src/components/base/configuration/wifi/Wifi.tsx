@@ -1,9 +1,11 @@
 
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWifi } from "../../../../store";
 import { Button } from "../../../ui/button/Button";
 import { Input } from "../../../ui/input/Input";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Wifi.css';
 
 function Wifi(props: any) {
@@ -14,10 +16,20 @@ function Wifi(props: any) {
     const [password, setPassword] = useState("");
     const [wifiConnectLoading, setWifiConnectLoading] = useState(false);
     const dispatch = useDispatch();
+    const [expanded, setExpanded] = React.useState<string | false>(false);
+
+  const handleChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      selectSSID(panel);
+    };
 
     useEffect(() => {
         getWifiList();
     }, []);
+    useEffect(() => {
+        renderHtmlWifi();
+    }, [loading]);
 
     const connectWifi = async () => {
         var win = window as any;
@@ -51,50 +63,51 @@ function Wifi(props: any) {
         setLoading(false);
     }
 
-    const renderHtmlWifi = () => {
-        if (loading) {
-            return (
-                <h2>Recherche WiFi <i className="fa-solid fa-circle-notch fa-spin"></i></h2>
-            );
-        } else {
-            const htmlWifi = wifiList.map((wifi: any) => 
-                <div className="accordion-item" key={wifi.ssid}>
-                    <h2 className="accordion-header" id="headTest">
-                    <button onClick={() => selectSSID(wifi.ssid)} className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={"#" + wifi.ssid} aria-expanded="true" aria-controls="collapseOne">
-                            <span className="wifi-item-ssid">{wifi.ssid} {wifi.signal} dB</span>
-                        </button>
-                    </h2>
-                    <div id={wifi.ssid} className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                        <div className="accordion-body row align-items-center">
-                            <label className="col-12">
-                                Clé de sécurité {wifi.flags} :<br/>
-                                <Input setCustom={setPassword} value={password} onChange={onChangePassword} type="password" name="password" />
-                            </label>
-                            <div className="col-12">
-                                <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">
-                                    {wifiConnectLoading ? <i className="fa-solid fa-circle-notch fa-spin"></i> : "Connexion"}
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-            return (
-                <div className="accordion wifiList" id="accordion">
-                    {htmlWifi}
-                </div>
-            )
-        }
+    const renderHtmlWifi = async () => {
     }
     return (
         <div className={props}>
-            <div className="container-fluid text-center">
-                <div className="h1">Configuration du Wifi</div>
+            <div className="container-fluid text-center"><br/>
                 <div className="">
-                    {
-                        renderHtmlWifi()
-                    }
+                    <div className="accordion wifiList window" id="accordion">
+                        {loading &&
+                            <h2>Recherche WiFi <i className="fa-solid fa-circle-notch fa-spin"></i></h2>
+                        }
+                        {!loading &&
+                        wifiList.map((wifi: any) =>
+                        <div>
+                            <Accordion disableGutters expanded={expanded === wifi.ssid} onChange={handleChange(wifi.ssid)}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                            >
+                            <Typography>
+                                <span className="wifi-item-ssid">{wifi.ssid} {wifi.signal} dB</span>
+                            </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                            <Typography>
+                                <div className="row">
+                                    <label className="col-6">
+                                        <Input id={wifi.ssid} label={"Clé de sécurité " + wifi.flags} setCustom={setPassword} value={password} onChange={onChangePassword} type="password" name="password" />
+                                    </label>
+                                    <div className="col-6">
+                                            <Button disabled={password.length < 5} className="test" click={connectWifi} type="workee">
+                                                {wifiConnectLoading ? <i className="fa-solid fa-circle-notch fa-spin"></i> : "Connexion"}
+                                            </Button>
+                                    </div>
+                                </div>
+                            </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <br/>
+                        </div>
+                
+                        )}
+                    </div>
                 </div>
+                <hr/>
                 <footer className="row footerConfig">
                         <div className="col-12">
                             <Button click={props.undoState} type="workee">Retour</Button>

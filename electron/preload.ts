@@ -15,5 +15,6 @@ process.once("loaded", () => {
         connectWifi: (args) => ipcRenderer.invoke('wifi:connect', args),
         getData: (args) => ipcRenderer.invoke('data:get', args),
         setData: (args) => ipcRenderer.invoke('data:set', args),
+        getTemperatureHumitidy: (callback) => ipcRenderer.on('getTemperatureHumitidy', callback)
     });
 });

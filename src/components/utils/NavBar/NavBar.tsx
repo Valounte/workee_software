@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from '../../../assets/logo/logo-workee.png';
 import WifiOff from '../../../assets/wifi/wifi_off.png';
 import WifiOn from '../../../assets/wifi/wifi.png';
 import './NavBar.css';
+import Bell from "./Bell/Bell";
+import { setTopic } from "../../../store/notificationStore";
+import { Config } from "../../../Config";
 
 function NavBar() {
-    const [dateNow, setDateNow] = useState("");
-    const wifi = useSelector((state: any) => {
-        return state.wifi;
-    });
+    const [dateNow, setDateNow] = useState(""),
+        dispatch = useDispatch(),
+        wifi = useSelector((state: any) => {
+            return state.wifi;
+        });
     
     useEffect(() => {
         init();
@@ -28,9 +32,11 @@ function NavBar() {
 
     const init = () => {
         setDateNow(getDate());
+        dispatch(setTopic(Config.mercure.topic + "/" + Config.mercure.fakeJwt));
         setInterval(() => {
             setDateNow(getDate());
         }, 1000);
+        
     }
     return (
         <div>
@@ -47,6 +53,9 @@ function NavBar() {
                                 <img src={WifiOn} alt="" className="d-inline-block align-text-top wifi"/>
                             }
                             
+                        </li>
+                        <li className="nav-item">
+                        <Bell/>
                         </li>
                         <li className="nav-item">
                             <span className="date">{dateNow}</span>

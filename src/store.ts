@@ -1,4 +1,6 @@
 import { configureStore, createSlice, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { notification } from './store/notificationStore';
+
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false
 })
@@ -15,6 +17,8 @@ const wifi = createSlice({
     }
   }
 });
+
+
 
 const keyboard = createSlice({
   name: 'keyboard',
@@ -39,6 +43,7 @@ export const store = configureStore({
   middleware: customizedMiddleware,
   reducer: {
     wifi: wifi.reducer,
-    keyboard: keyboard.reducer
+    keyboard: keyboard.reducer,
+    notification: notification.reducer
   }
 });

@@ -6,6 +6,8 @@ import isDev = require('electron-is-dev');
 import Logger from './utils/Logger';
 import WiFi from './modules/wifi/WiFi';
 import Data from './modules/data/Data';
+import { Config } from './config';
+import Captor from './modules/captor/captor';
 // import { Init } from './init';
 
 export default class Main {
@@ -27,11 +29,11 @@ export default class Main {
         Logger.init();
         Logger.Info("Appli launched");
         let wifi = new WiFi();
+        Captor.init();
         Data.initIpc();
     }
 
     private static onReady() {
-        Main.launch();
         this.win = new Main.BrowserWindow({
             width: 800,
             height: 480,
@@ -44,6 +46,7 @@ export default class Main {
                 preload: path.join(__dirname, "preload.js"),
             }
         })
+        Main.launch();
     
         const appURL = app.isPackaged ?
             url.format({
@@ -51,7 +54,7 @@ export default class Main {
                 protocol: "file:",
                 slashes: true,
             }) :
-            "http://localhost:3000";
+            (Config.urlApp) ? Config.urlApp : "http://localhost:3000";
         if (this.win) {
             this.win.loadURL(appURL);
         }
