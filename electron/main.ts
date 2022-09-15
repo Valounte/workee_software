@@ -29,12 +29,12 @@ export default class Main {
         Logger.init();
         Logger.Info("Appli launched");
         let wifi = new WiFi();
-        Captor.init(this.win);
+        Captor.init(Main.win);
         Data.initIpc();
     }
 
     private static onReady() {
-        this.win = new Main.BrowserWindow({
+        Main.win = new Main.BrowserWindow({
             width: 800,
             height: 480,
             fullscreen: !isDev,
