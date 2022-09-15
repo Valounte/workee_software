@@ -18,7 +18,7 @@ export default class Captor {
             obj = JSON.parse(message);
             this.win.webContents.send('getTemperatureHumitidy', obj);
         } catch (e) {
-            console.log(e);
+            Logger.Error("Captor not send data");
         }
     }
 }
