@@ -4,9 +4,10 @@ import Main from "../../main";
 
 export default class Captor {
     static captorTempHum: PythonShell;
-    
-    public static init = () => {
+    static win: Electron.BrowserWindow | null;
+    public static init = (win: Electron.BrowserWindow) => {
         this.captorTempHum = new PythonShell("/home/brangers/test.py");
+        this.win = win;
         Logger.Info("Captor module loaded");
         this.captorTempHum.on('message', this.sendMessageTempHumidity);
     }
@@ -15,7 +16,7 @@ export default class Captor {
         var obj;
         try {
             obj = JSON.parse(message);
-            Main.win.webContents.send('getTemperatureHumitidy', obj);
+            this.win.webContents.send('getTemperatureHumitidy', obj);
         } catch (e) {
             console.log(e);
         }

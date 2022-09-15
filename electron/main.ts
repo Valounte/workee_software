@@ -11,7 +11,7 @@ import Captor from './modules/captor/captor';
 // import { Init } from './init';
 
 export default class Main {
-    static win: Electron.BrowserWindow | null;
+    public static win: Electron.BrowserWindow | null;
     static application: Electron.App;
     static BrowserWindow: any;
     private static onWindowAllClosed() {
@@ -29,7 +29,7 @@ export default class Main {
         Logger.init();
         Logger.Info("Appli launched");
         let wifi = new WiFi();
-        Captor.init();
+        Captor.init(this.win);
         Data.initIpc();
     }
 
