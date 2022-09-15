@@ -58,7 +58,7 @@
         "electron:build": "npm run build && tsc -p electron && electron-builder build -c.extraMetadata.main=build/electron/main.js --linux deb --armv7l",
         "electron:buildOs": "npm run build && tsc -p electron && electron-builder build -c.extraMetadata.main=build/electron/main.js",
         "electron:start": "wait-on http://localhost:3000 && electron .",
-        "electron:dev": "tsc -p electron && cp electron/script build/electron/ -r  && electron ."
+        "electron:dev": "tsc -p electron && electron ."
     },
     "homepage": "./",
     "main": "build/electron/main.js",

@@ -9,5 +9,11 @@ export default class Captor {
         this.captorTempHum.on('message', function(message) {
             console.log(message);
           })
+          this.captorTempHum.end(function (err) {
+            if (err){
+              throw err;
+            };
+            console.log('finished');
+          });
     }
 }
