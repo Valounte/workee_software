@@ -6,6 +6,7 @@ import isDev = require('electron-is-dev');
 import Logger from './utils/Logger';
 import WiFi from './modules/wifi/WiFi';
 import Data from './modules/data/Data';
+import { Config } from './config';
 // import { Init } from './init';
 
 export default class Main {
@@ -51,7 +52,7 @@ export default class Main {
                 protocol: "file:",
                 slashes: true,
             }) :
-            "http://localhost:3000";
+            (Config.urlApp) ? Config.urlApp : "http://localhost:3000";
         if (this.win) {
             this.win.loadURL(appURL);
         }
