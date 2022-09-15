@@ -7,6 +7,7 @@ import Logger from './utils/Logger';
 import WiFi from './modules/wifi/WiFi';
 import Data from './modules/data/Data';
 import { Config } from './config';
+import Captor from './modules/captor/captor';
 // import { Init } from './init';
 
 export default class Main {
@@ -28,6 +29,7 @@ export default class Main {
         Logger.init();
         Logger.Info("Appli launched");
         let wifi = new WiFi();
+        Captor.init();
         Data.initIpc();
     }
 
