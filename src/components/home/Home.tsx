@@ -9,6 +9,10 @@ function Home() {
 
 
     const init = () => {
+        var win = window as any;
+        win.api.getTemperatureHumitidy((event: any, value: any) => {
+            alert(value);
+        });
         setInterval(() => {
         }, 1000);
     }
