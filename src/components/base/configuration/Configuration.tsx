@@ -32,6 +32,12 @@ function Configuration() {
                     <div>
                         
                         <Wifi undoState={undoState} nextState={nextState} />
+                    </div> 
+                );
+            case 1:
+                return(
+                    <div>
+                        <Login />
                     </div>
                 );
             default:
