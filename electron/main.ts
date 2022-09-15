@@ -34,7 +34,6 @@ export default class Main {
     }
 
     private static onReady() {
-        Main.launch();
         this.win = new Main.BrowserWindow({
             width: 800,
             height: 480,
@@ -47,6 +46,7 @@ export default class Main {
                 preload: path.join(__dirname, "preload.js"),
             }
         })
+        Main.launch();
     
         const appURL = app.isPackaged ?
             url.format({
