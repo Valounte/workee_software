@@ -1,25 +1,23 @@
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-
-import { Button } from '../ui/button/Button';
+import styled from '@emotion/styled';
+import { Container, Stack } from '@mui/material';
 import { LoginForm } from '../ui/formInput/LoginForm';
+import { ReactComponent as LoginImage } from '../../ui-kit/images/workee-login.svg';
 
-export const Login = (props:any) => {
 
-    /*axios.post("http://localhost:39147", 
-    {
-        "email": email, 
-        "password": password
-    }).then( result => {
-        console.log(result);
-        navigate("/w/test");
-    }).catch(error => {
-        console.log(error);
-        var email = document.getElementById("email");
-        var password = document.getElementById("email");            
-    })*/
+const ContainerStyled = styled(Container)`
+    height: 85vh
+`
+
+export const Login = () => {
     return (
-        <LoginForm />
+        <ContainerStyled maxWidth="md">
+            <Stack direction="row" alignItems='center' height="100%">
+                <Stack direction='column' alignItems="flex-start" display={{ xs: 'none', sm: 'flex' }}>
+                    <LoginImage width='100%' height='90%' />
+                </Stack>
+                <LoginForm />
+            </Stack>
+        </ContainerStyled>
     )
 }
 

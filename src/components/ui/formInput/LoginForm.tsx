@@ -1,78 +1,65 @@
 import { useCallback, useState } from 'react';
-import { Button, styled } from '../../../ui-kit';
+import { Button } from '../../../ui-kit';
 import { Input } from '../input/Input';
 import './LoginForm.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
-import {ReactComponent as LoginImage} from '../../../ui-kit/images/workee-login.svg';
 import { Stack, Typography } from '@mui/material';
-import { Container } from '@mui/system';
-
-const ContainerStyled = styled(Container)`
-    height: 85vh
-`
 
 export const LoginForm = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
-    const [emailValue, setEmailValue]= useState<string>();
+    const [emailValue, setEmailValue] = useState<string>();
     const [passwordValue, setPasswordValue] = useState<string>();
 
-    const handleChangeEmail = useCallback((event:any) => {
+    const handleChangeEmail = useCallback((event: any) => {
         const target = event.target;
         const email = target.value;
         setEmailValue(email);
     }, []);
 
-    const handleChangePassword = useCallback((event:any) => {
+    const handleChangePassword = useCallback((event: any) => {
         const target = event.target;
         const password = target.value;
         setPasswordValue(password);
     }, [])
 
-    const handleSubmit = () =>  {
-        axios.post('/login', 
-        {
-            email: emailValue,
-            password: passwordValue
-        }).then(function (response) {
-            const cookie = new Cookies();
-            cookie.set(response.data.token, { path: '/' });
-            navigate("/w/home");
-        }).catch(function(error) {
-            enqueueSnackbar(error.response.data.message, {variant: 'error'});
-        });
+    const handleSubmit = () => {
+        axios.post('/login',
+            {
+                email: emailValue,
+                password: passwordValue
+            }).then(function (response) {
+                const cookie = new Cookies();
+                cookie.set(response.data.token, { path: '/' });
+                navigate("/w/home");
+            }).catch(function (error) {
+                enqueueSnackbar(error.response.data.message, { variant: 'error' });
+            });
     }
-    
+
     return (
-        <ContainerStyled maxWidth="md">
-            <Stack direction="row" alignItems='center' height="100%">
-                <Stack direction='column' alignItems="flex-start" display={{xs: 'none', sm:'flex'}}>
-                    <LoginImage width='100%' height='90%' />
+        <Stack alignItems="center" justifyContent="center" spacing={3}>
+            <Typography variant='h1' fontSize='3em'>Content de vous revoir</Typography>
+            <form>
+                <Stack spacing={3}>
+                    <Input placeholder="Adresse Mail"
+                        id="input-email"
+                        setCustom={handleChangeEmail}
+                        value={emailValue}
+                        onChange={handleChangeEmail} />
+                    <Input placeholder="Mot de passe"
+                        id="input-passwd"
+                        type="password"
+                        setCustom={handleChangePassword}
+                        value={passwordValue}
+                        onChange={handleChangePassword} />
+                    <Button variant='contained' color='secondary' onClick={handleSubmit}>Login</Button>
                 </Stack>
-                <Stack alignItems="center" justifyContent="center" spacing={3}>
-                    <Typography variant='h1' fontSize='3em'>Content de vous revoir</Typography>
-                    <form>
-                        <Stack spacing={3}>
-                            <Input placeholder="Adresse Mail"
-                            id="input-email"
-                            setCustom={handleChangeEmail}
-                            value={emailValue}
-                            onChange={handleChangeEmail} />
-                            <Input placeholder="Mot de passe"
-                            id="input-passwd"
-                            type="password"
-                            setCustom={handleChangePassword}
-                            value={passwordValue}
-                            onChange={handleChangePassword} />
-                            <Button variant='contained' color='secondary' onClick={handleSubmit}>Login</Button>
-                        </Stack>
-                    </form>
-                </Stack>
-            </Stack>
-        </ContainerStyled>
-   );
+            </form>
+        </Stack>
+    );
 }
