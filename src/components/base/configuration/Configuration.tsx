@@ -2,7 +2,6 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Login from "../../login/Login";
-import Login from "../../login/Login";
 import { Button } from "../../ui/button/Button";
 import './Configuration.css';
 import Wifi from "./wifi/Wifi";
@@ -17,7 +16,7 @@ function Configuration() {
         setActiveStep(activeStep + 1);
         setState(state + 1);
         if (state === 1) {
-            navigate("/w/home");
+            navigate("/w/login");
         }
     }
 
