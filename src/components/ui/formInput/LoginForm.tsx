@@ -1,12 +1,18 @@
 import { useCallback, useState } from 'react';
-import { Button } from '../../../ui-kit';
+import { Button, styled } from '../../../ui-kit';
 import { Input } from '../input/Input';
 import './LoginForm.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
+import {ReactComponent as LoginImage} from '../../../ui-kit/images/workee-login.svg';
+import { Stack, Typography } from '@mui/material';
+import { Container } from '@mui/system';
 
+const ContainerStyled = styled(Container)`
+    height: 85vh
+`
 
 export const LoginForm = () => {
     const navigate = useNavigate();
@@ -42,21 +48,31 @@ export const LoginForm = () => {
     }
     
     return (
-        <form>
-            <Input placeholder="email"
-            id="loginEmail"
-            //setCustom={handleChangeEmail}
-            value={emailValue}
-            onChange={handleChangeEmail}
-            />
-            <Input placeholder="password"
-            id="loginPassword"
-            type="password"
-            //setCustom={handleChangePassword}
-            value={passwordValue}
-            onChange={handleChangePassword} 
-            />
-            <Button className="workee" onClick={handleSubmit}>Login</Button>
-        </form>
-    );
+        <ContainerStyled maxWidth="md">
+            <Stack direction="row" alignItems='center' height="100%">
+                <Stack direction='column' alignItems="flex-start" display={{xs: 'none', sm:'flex'}}>
+                    <LoginImage width='100%' height='90%' />
+                </Stack>
+                <Stack alignItems="center" justifyContent="center" spacing={3}>
+                    <Typography variant='h1' fontSize='3em'>Content de vous revoir</Typography>
+                    <form>
+                        <Stack spacing={3}>
+                            <Input placeholder="Adresse Mail"
+                            id="input-email"
+                            setCustom={handleChangeEmail}
+                            value={emailValue}
+                            onChange={handleChangeEmail} />
+                            <Input placeholder="Mot de passe"
+                            id="input-passwd"
+                            type="password"
+                            setCustom={handleChangePassword}
+                            value={passwordValue}
+                            onChange={handleChangePassword} />
+                            <Button variant='contained' color='secondary' onClick={handleSubmit}>Login</Button>
+                        </Stack>
+                    </form>
+                </Stack>
+            </Stack>
+        </ContainerStyled>
+   );
 }
