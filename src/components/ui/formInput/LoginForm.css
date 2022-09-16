@@ -1,14 +1,6 @@
-.input-email, .input-passwd {
-    display: center;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    padding-left: 2%;
-    width: 70vw;
-    height: 9vw;
+#input-email, #input-passwd {
     border-style: solid;
     border-width: 3;
-    border-radius: 5px !important;
     border-color: lightgray;
     color: grey;
 }
