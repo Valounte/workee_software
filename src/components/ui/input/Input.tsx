@@ -9,7 +9,7 @@ export const Input = (props: any) => {
     const dispatch = useDispatch();
 
     const onFocus = async (e: any) => {
-      console.log(e);
+      //console.log(e);
       setTimeout(() => {
         dispatch(keyboardF.setKeyboard({
             keyboard: true,

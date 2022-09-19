@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import { store } from './store'
 import { ThemeProvider } from '@mui/material';
 import { theme } from './ui-kit';
+import { SnackbarProvider } from 'notistack';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,8 +18,10 @@ root.render(
     <HashRouter>
     <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <App />
-      </ThemeProvider>
+      <SnackbarProvider maxSnack={2} autoHideDuration={2000}>
+        <App />
+      </SnackbarProvider>
+    </ThemeProvider>
     </Provider>
     </HashRouter>
 );

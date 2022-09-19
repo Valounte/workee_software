@@ -1,6 +1,7 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Login from "../../login/Login";
 import { Button } from "../../ui/button/Button";
 import './Configuration.css';
 import Wifi from "./wifi/Wifi";
@@ -14,8 +15,8 @@ function Configuration() {
     const nextState = () => {
         setActiveStep(activeStep + 1);
         setState(state + 1);
-        if (state === 0) {
-            navigate("/w/home");
+        if (state === 1) {
+            navigate("/w/login");
         }
     }
 
@@ -31,6 +32,12 @@ function Configuration() {
                     <div>
                         
                         <Wifi undoState={undoState} nextState={nextState} />
+                    </div> 
+                );
+            case 1:
+                return(
+                    <div>
+                        <Login />
                     </div>
                 );
             default:

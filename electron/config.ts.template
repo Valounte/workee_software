@@ -1,3 +1,4 @@
 export const Config = {
-    isWindows: false
+    isWindows: false,
+    urlApp: "http://localhost:3000",
 }
