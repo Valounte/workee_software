@@ -48,13 +48,13 @@ export const LoginForm = () => {
                 <Stack spacing={3}>
                     <Input placeholder="Adresse Mail"
                         id="input-email"
-                        setCustom={handleChangeEmail}
+                        setCustom={setEmailValue}
                         value={emailValue}
                         onChange={handleChangeEmail} />
                     <Input placeholder="Mot de passe"
                         id="input-passwd"
                         type="password"
-                        setCustom={handleChangePassword}
+                        setCustom={setPasswordValue}
                         value={passwordValue}
                         onChange={handleChangePassword} />
                     <Button variant='contained' color='secondary' onClick={handleSubmit}>Login</Button>
