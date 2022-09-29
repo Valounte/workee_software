@@ -1,27 +1,31 @@
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material"
 import { format } from 'date-fns'
 import styled from '@emotion/styled';
-import { padding } from "@mui/system";
+import { Notification } from "../../notifications/INotification";
 
 const BoldTypo = styled(Typography)`
     font-weight: bold
 `
-var date = new Date("2022-09-29T14:26:09+02:00");
 
+interface NotificationCardProps {
+    notification: Notification
+}
 
-export const NotificationCard = () => {
+export const NotificationCard = (props: NotificationCardProps) => {
+    const {notification} = props;
+    const {message, sentAt, senderFirstname, senderLastname, alertLevel} = notification;
     return (
         <Card elevation={5}>
             <Box padding={2}>
-                <Stack justifyContent={"space-between"} direction={"row"}>
+                <Stack direction={"row"} spacing={{sm: 15}}>
                     <Stack justifyContent={"flex-start"} direction={"row"}>
-                        <Avatar>T</Avatar>
+                        <Avatar>{senderFirstname.substring(0,1)}</Avatar>
                         <Stack direction={"column"} textAlign="left" marginLeft={2}>
-                            <BoldTypo fontSize='1em' >Téo Martin</BoldTypo>
-                            <Typography fontSize='1em'>{format(date,"dd MMMM yyyy")}</Typography>
+                            <BoldTypo fontSize='1em'>{senderFirstname + " " + senderLastname + " - " + alertLevel}</BoldTypo>
+                            <Typography fontSize='0.75em'>{format(new Date(sentAt),"dd/MM/yyyy HH:mm:ss")}</Typography>
                         </Stack>
                     </Stack>
-                    <Typography fontSize='1em'>Lorem Ipsum is simply dummy text of the printing and t</Typography>
+                    <Typography fontSize='1em'>{message}</Typography>
                 </Stack>
             </Box>
         </Card>
