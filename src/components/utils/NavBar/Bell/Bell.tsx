@@ -5,6 +5,7 @@ import './Bell.css';
 import { toast } from 'react-toastify';
 import $ from 'jquery';
 import { setMessage } from "../../../../store/notificationStore";
+import { useNavigate } from 'react-router-dom';
 
 const Message = (props: any) => {
     return (<div>
@@ -21,8 +22,9 @@ const Message = (props: any) => {
     </div>)
 }
 
-
 function Bell() {
+    const navigate = useNavigate();
+
     const message = useSelector((state: any) => {
         return state.notification.message;
     });
@@ -111,7 +113,9 @@ function Bell() {
     }, [message]);
     
     return (
-        <div>
+        <div onClick={() => {
+            navigate("/w/notifications")
+        }}>
             {counter.length > 0 &&
                 <div className="div-counter">
                     <span className="pastille">{counter.length}</span>
