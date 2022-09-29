@@ -14,6 +14,7 @@ export const Notification = (props: any) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(props.config.topic)
         if (eventSource.current) {
             eventSource.current.close();
         }

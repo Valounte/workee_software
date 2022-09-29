@@ -40,7 +40,9 @@ export default class WiFi {
             }
         } catch (e) {
             Logger.Warn("Wifi not connected");
-            Data.delSaveData("wifi");
+            if (!Config.isWindows) {
+                Data.delSaveData("wifi");
+            }
 
         }
     }
@@ -100,7 +102,6 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi(
                 return false;
             } else {
                 await Data.setSaveData("wifi", args);
-                await Data.setSaveData("ready", true);
                 return true;
             }
         } else {

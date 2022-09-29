@@ -7,9 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import { Stack, Typography } from '@mui/material';
+import { Config } from '../../../Config';
+import { setTopic } from '../../../store/notificationStore';
+import { useDispatch } from 'react-redux';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
     const [emailValue, setEmailValue] = useState<string>();
@@ -32,9 +36,14 @@ export const LoginForm = () => {
             {
                 email: emailValue,
                 password: passwordValue
-            }).then(function (response) {
-                const cookie = new Cookies();
-                cookie.set(response.data.token, { path: '/' });
+            }).then(async function (response) {
+                var win = window as any;
+                let token = response.data.token;
+                await win.api.setData({key:"token", value: response.data.token});
+                if (token) {
+                    token = token.split(" ")[1];
+                    dispatch(setTopic(Config.mercure.topic + "/" + token));
+                }
                 navigate("/w/home");
             }).catch(function (error) {
                 enqueueSnackbar(error.response.data.message, { variant: 'error' });

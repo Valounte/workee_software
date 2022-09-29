@@ -11,13 +11,14 @@ function Loading() {
         setTimeout(async () => {
             var win = window as any;
             let wifi = await win.api.getData("wifi");
+            let token = await win.api.getData("token");
             if (wifi) {
                 dispatch(setWifi({
                     ssid: wifi.ssid,
                     connected: true
                 }));
             }
-            if (await win.api.getData("ready")) {
+            if (wifi && token) {
                 navigate("/w/home");
             } else {
                 navigate("/w/config");

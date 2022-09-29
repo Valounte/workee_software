@@ -30,9 +30,14 @@ function NavBar() {
         return `${hour}:${minute}`;
     }
 
-    const init = () => {
+    const init = async () => {
         setDateNow(getDate());
-        dispatch(setTopic(Config.mercure.topic + "/" + Config.mercure.fakeJwt));
+        let win = window as any;
+        let token = await win.api.getData("token");
+        if (token) {
+            token = token.split(" ")[1];
+            dispatch(setTopic(Config.mercure.topic + "/" + token));
+        }
         setInterval(() => {
             setDateNow(getDate());
         }, 1000);

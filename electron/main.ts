@@ -8,6 +8,7 @@ import WiFi from './modules/wifi/WiFi';
 import Data from './modules/data/Data';
 import { Config } from './config';
 import Captor from './modules/captor/captor';
+import Login from './modules/login/Login';
 // import { Init } from './init';
 
 export default class Main {
@@ -28,7 +29,8 @@ export default class Main {
     private static launch() {
         Logger.init();
         Logger.Info("Appli launched");
-        let wifi = new WiFi();
+        new WiFi();
+        new Login();
         Captor.init();
         Data.initIpc();
     }
