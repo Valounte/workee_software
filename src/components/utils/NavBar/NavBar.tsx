@@ -7,6 +7,7 @@ import './NavBar.css';
 import Bell from "./Bell/Bell";
 import { setTopic } from "../../../store/notificationStore";
 import { Config } from "../../../Config";
+import UserIcon from "./UserIcon/UserIcon";
 
 function NavBar() {
     const [dateNow, setDateNow] = useState(""),
@@ -51,6 +52,9 @@ function NavBar() {
                     
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
+                            <UserIcon />
+                        </li>
+                        <li className="nav-item">
                             {!wifi.connected === true &&
                                 <img src={WifiOff} alt="" className="d-inline-block align-text-top wifi"/>
                             }
@@ -60,7 +64,7 @@ function NavBar() {
                             
                         </li>
                         <li className="nav-item">
-                        <Bell/>
+                            <Bell/>
                         </li>
                         <li className="nav-item">
                             <span className="date">{dateNow}</span>
