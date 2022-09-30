@@ -1,14 +1,14 @@
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material"
 import { format } from 'date-fns'
 import styled from '@emotion/styled';
-import { Notification } from "../../notifications/INotification";
+import { INotification } from "../../notifications/INotification";
 
 const BoldTypo = styled(Typography)`
     font-weight: bold
 `
 
 interface NotificationCardProps {
-    notification: Notification
+    notification: INotification
 }
 
 export const NotificationCard = (props: NotificationCardProps) => {
