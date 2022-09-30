@@ -1,7 +1,6 @@
 import { Container, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Config } from '../../Config';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
 import type { Notification } from './INotification';
 
