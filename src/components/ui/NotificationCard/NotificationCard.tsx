@@ -26,7 +26,7 @@ export const NotificationCard = (props: NotificationCardProps) => {
                                 <Avatar>{senderFirstname.substring(0,1)}</Avatar>
                                 <Stack direction={"row"} marginLeft={2}>
                                     <BoldTypo fontSize='1em'>{senderFirstname + " " + senderLastname}</BoldTypo>
-                                    <Typography fontSize='0.75em'>{format(new Date(sentAt),"dd/MM/yyyy HH:mm:ss")}</Typography>
+                                    <Typography fontSize='0.75em' paddingLeft={2} paddingTop={0.5}>{format(new Date(sentAt),"dd/MM/yyyy HH:mm:ss")}</Typography>
                                 </Stack>
                             </Stack>
                             <Stack justifyContent={"flex-start"} alignItems={"flex-start"} paddingLeft={7}>
