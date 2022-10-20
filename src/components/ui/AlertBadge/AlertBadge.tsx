@@ -22,19 +22,19 @@ export const AlertBadge = (props: AlertType) => {
 
     if(defBadgeColor()?.color === "error") {
         return(
-            <Chip label={defBadgeColor()?.text} color={"error"} />
+            <Chip label={defBadgeColor()?.text} color={"error"} size={"small"}/>
         );
     } else if (defBadgeColor()?.color === "warning") {
         return(
-            <Chip label={defBadgeColor()?.text} color={"warning"} />
+            <Chip label={defBadgeColor()?.text} color={"warning"} size={"small"}/>
         );
     } else if (defBadgeColor()?.color === "success") {
         return(
-            <Chip label={defBadgeColor()?.text} color={"success"} />
+            <Chip label={defBadgeColor()?.text} color={"success"} size={"small"}/>
         );
     } else {
         return(
-            <Chip label={defBadgeColor()?.text} color={"primary"} />
+            <Chip label={defBadgeColor()?.text} color={"primary"} size={"small"}/>
         ); 
     }
 }
