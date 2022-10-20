@@ -29,7 +29,7 @@ export const NotificationCard = (props: NotificationCardProps) => {
                                     <Typography fontSize='0.75em'>{format(new Date(sentAt),"dd/MM/yyyy HH:mm:ss")}</Typography>
                                 </Stack>
                             </Stack>
-                            <Stack  justifyContent={"flex-start"}>
+                            <Stack justifyContent={"flex-start"} alignItems={"flex-start"} paddingLeft={7}>
                                 <Typography fontSize='1em' >{message}</Typography>
                             </Stack>
                         </Stack>
