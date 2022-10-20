@@ -27,7 +27,7 @@ export const Notifications = () => {
             <Typography marginBottom={2} marginTop={2} variant='h1' fontSize='3em'>Vos Notifications</Typography>
             <Stack direction="column">
             {notifications?.map((notification) => {
-                return(<NotificationCard notification={notification} key={notification.id}/>);
+                return(<NotificationCard notification={notification} marginBot={"10px"} key={notification.id}/>);
             })} 
             </Stack>
         </Container>
