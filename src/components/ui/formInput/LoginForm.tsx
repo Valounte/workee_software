@@ -43,6 +43,7 @@ export const LoginForm = () => {
                 if (token) {
                     token = token.split(" ")[1];
                     dispatch(setTopic(Config.mercure.topic + "/" + token));
+                    localStorage.setItem("token", token);
                 }
                 navigate("/w/home");
             }).catch(function (error) {
