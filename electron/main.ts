@@ -36,7 +36,7 @@ export default class Main {
     }
 
     private static onReady() {
-        this.win = new Main.BrowserWindow({
+        Main.win = new Main.BrowserWindow({
             width: 800,
             height: 480,
             fullscreen: !isDev,
@@ -57,8 +57,8 @@ export default class Main {
                 slashes: true,
             }) :
             (Config.urlApp) ? Config.urlApp : "http://localhost:3000";
-        if (this.win) {
-            this.win.loadURL(appURL);
+        if (Main.win) {
+            Main.win.loadURL(appURL);
         }
         
         // Automatically open Chrome's DevTools in development mode.

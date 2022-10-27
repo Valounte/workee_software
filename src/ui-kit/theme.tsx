@@ -74,38 +74,6 @@ export const theme = createTheme({
     },
   },
   components: {
-    MuiStepLabel: {
-      styleOverrides: {
-        label: {
-          fontSize: '15px',
-        }
-      }
-    },
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          border: 'solid 1px',
-          borderRadius: '0px',
-        }
-      }
-    },
-    MuiAccordionSummary: {
-      styleOverrides: {
-        expanded: {
-          backgroundColor: '#f5f5f5',
-        }
-      }
-    },
-    MuiStepIcon: {
-      styleOverrides: {
-        root: {
-          width: '30px',
-        },
-        text: {
-          fontSize: '10px',
-        }
-      }
-    },
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {

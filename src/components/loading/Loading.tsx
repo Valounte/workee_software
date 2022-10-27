@@ -19,6 +19,7 @@ function Loading() {
                 }));
             }
             if (wifi && token) {
+                localStorage.setItem("token", token);
                 navigate("/w/home");
             } else {
                 navigate("/w/config");
