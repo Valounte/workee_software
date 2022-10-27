@@ -1,6 +1,7 @@
 import { Container, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import http from '../../utils/http/httpService';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
 import type { Notification } from './INotification';
 
@@ -14,8 +15,8 @@ export const Notifications = () => {
     const [notifications, setNotifications] = useState<Notification[]>();
    
     async function init() {
-        const notif = await axios.get("/notifications", config);
-        setNotifications(notif.data);
+        const notif = await http.get("/notifications", "");
+        setNotifications(notif);
     }
 
     useEffect(() => {
