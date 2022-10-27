@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import { IUser } from './IUser';
 import { useNavigate } from 'react-router-dom';
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const navigate = useNavigate();
-
 const token = localStorage.getItem("token");
 const config = { headers: { Authorization: `Bearer ${token}` } };
 
     
 export const Profile = () => {
+
+    const navigate = useNavigate();
     const [user, setUser] = useState<IUser>();
 
     async function init() {
