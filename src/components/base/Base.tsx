@@ -20,7 +20,9 @@ function Base() {
                     topic: notification.topic
                 }
             }>
+            <div className='stickyDiv'>
                 <Outlet />
+            </div>
             </Notification>
         </div>
     );
