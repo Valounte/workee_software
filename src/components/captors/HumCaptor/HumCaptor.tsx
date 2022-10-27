@@ -21,7 +21,7 @@ export const HumCaptor = (props: IPropsTempHumCaptor) => {
 
     return (
         <div className="row">
-            <Card className="cardCaptor" sx={{ maxWidth: 350, maxHeight: 200, width: 350 }}>
+            <Card className="cardCaptor" sx={{ maxWidth: 350, maxHeight: 200, width: 350}}>
                 <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom variant="h5">
