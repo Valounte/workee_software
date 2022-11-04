@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import Login from './components/login/Login';
 import axios from 'axios';
 import { Notifications } from './components/notifications/Notifications';
+import { Profile } from './components/profile/Profile';
 
 axios.defaults.baseURL = "https://workee-back.brangers.eu/api";
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="home" element={<Home/>} />
           <Route path="config" element={<Configuration/>} />
           <Route path="login" element={<Login/>} />
+          <Route path="profile" element={<Profile/>}/>
           <Route path="notifications" element={<Notifications/>} />
         </Route>
       </Routes>
