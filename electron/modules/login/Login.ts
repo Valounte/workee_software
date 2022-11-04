@@ -20,8 +20,15 @@ export default class Login {
         return true;
     }
 
+    private async setLogout() {
+        await Data.delSaveData("token");
+        await Data.delSaveData("ready");
+        return true;
+    }
+
     public initIpc(): void {
         ipcMain.handle("login:set", this.setLogin);
+        ipcMain.handle("login:logout", this.setLogout);
     }
 
     public getWifiList(): any {

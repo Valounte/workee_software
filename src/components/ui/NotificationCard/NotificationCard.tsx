@@ -1,7 +1,7 @@
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material"
 import { format } from 'date-fns'
 import styled from '@emotion/styled';
-import { Notification } from "../../notifications/INotification";
+import { INotification } from "../../notifications/INotification";
 import { AlertBadge } from "../AlertBadge/AlertBadge";
 
 const BoldTypo = styled(Typography)`
@@ -9,7 +9,7 @@ const BoldTypo = styled(Typography)`
 `
 
 interface NotificationCardProps {
-    notification: Notification
+    notification: INotification
     marginBot: string
 }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import http from '../../utils/http/httpService';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
-import type { Notification } from './INotification';
+import type { INotification } from './INotification';
 
 const token = localStorage.getItem("token");
 
@@ -12,7 +12,7 @@ const config = {
 };
 
 export const Notifications = () => {
-    const [notifications, setNotifications] = useState<Notification[]>();
+    const [notifications, setNotifications] = useState<INotification[]>();
    
     async function init() {
         const notif = await http.get("/notifications", "");
