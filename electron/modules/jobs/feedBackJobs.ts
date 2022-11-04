@@ -5,10 +5,11 @@ import Main from "../../main";
 
 export class feedBack {
     private task;
+
     constructor(cronInfo: string) {
         Logger.Info("Cron started at " + cronInfo);
         
-        this.task = cron.schedule(cronInfo, () => {
+        this.task = cron.schedule("*/10 * * * * *", () => {
             Main.win.webContents.send('feedback:launch', {});
         });
 

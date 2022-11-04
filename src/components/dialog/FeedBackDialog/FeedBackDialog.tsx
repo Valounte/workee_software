@@ -9,8 +9,15 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import http from '../../../utils/http/httpService';
 
-function FeedBackDialog() {
+
+interface IFeedBackDialogProps {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+}
+
+function FeedBackDialog(props: IFeedBackDialogProps) {
 
     const [valueRating, setValueRating] = React.useState<number | null>();
 
@@ -53,8 +60,15 @@ function FeedBackDialog() {
         return <span {...other}>{customIcons[value].icon}</span>;
       }
 
+    async function handleClick() {
+        let result = await http.post("/submit-daily-feedback", {satisfactionDegree: valueRating, isAnonymous: false});
+        if (result.message) {
+          props.setOpen(false);
+        }
+    }
+
     return (
-        <Dialog fullWidth={true} open={true}>
+        <Dialog fullWidth={true} open={props.open}>
             <DialogTitle>
                 Avis du jour
             </DialogTitle>
@@ -72,7 +86,7 @@ function FeedBackDialog() {
                 />
             </Container>
             <Container>
-                <Button variant="contained" color="secondary">Envoyer</Button>
+                <Button disabled={(valueRating) ? false : true} variant="contained" color="secondary" onClick={handleClick}>Envoyer</Button>
             </Container>
         </Dialog>
     );

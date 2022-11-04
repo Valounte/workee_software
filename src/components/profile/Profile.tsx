@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IUser } from "./IUser";
 import { useNavigate } from "react-router-dom";
+import http from "../../utils/http/httpService";
 
 const GreyTypo = styled(Typography)`
   color: grey;
@@ -15,12 +16,12 @@ export const Profile = () => {
 
   var win = window as any;
   const token = localStorage.getItem("token");
-  const config = { headers: { Authorization: `Bearer ${token}` } };
+  console.log(token);
 
 
     const fetchUserData = async () => {
         try {
-            const me = await axios.get("/me", config);
+            const me = await http.get("/me", {});
             return {success: true, data: me};
         } catch (error) {
             console.log(error);
@@ -36,7 +37,7 @@ export const Profile = () => {
             setUserLoaded(false);
             let res = await fetchUserData();
             if (res.success) {
-                setUser(res.data?.data);
+                setUser(res.data);
                 setUserLoaded(true);
             }
         }) ();
