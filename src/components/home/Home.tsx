@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Captors } from "../captors/Captors";
 import './Home.css';
 

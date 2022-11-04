@@ -33,6 +33,7 @@
         "eslint-plugin-promise": "^6.0.0",
         "jquery": "^3.6.0",
         "log4js": "^6.5.2",
+        "node-cron": "^3.0.2",
         "nodemon": "^2.0.16",
         "notistack": "^2.0.5",
         "python-shell": "^3.0.1",
@@ -55,6 +56,7 @@
     "scripts": {
         "install": "electron-builder install-app-deps",
         "start": "react-scripts start",
+        "lint": "eslint . --ext .tsx --ext .ts",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",

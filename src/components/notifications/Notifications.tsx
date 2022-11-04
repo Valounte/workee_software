@@ -1,15 +1,8 @@
 import { Container, Stack, Typography } from '@mui/material';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import http from '../../utils/http/httpService';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
 import type { Notification } from './INotification';
-
-const token = localStorage.getItem("token");
-
-const config = {
-    headers: { Authorization: `Bearer ${token}` }
-};
 
 export const Notifications = () => {
     const [notifications, setNotifications] = useState<Notification[]>();

@@ -3,7 +3,6 @@ import { Card, CardActionArea, CardContent } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Typography } from "../../../ui-kit";
 import { HumidityIcon } from "../../../ui-kit/icons/Metrics/Humidity";
-import { ThermometerIcon } from "../../../ui-kit/icons/Metrics/Thermometer";
 import "./HumCaptor.css";
 
 interface IPropsTempHumCaptor {
