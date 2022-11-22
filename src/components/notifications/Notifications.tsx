@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import http from '../../utils/http/httpService';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
 import type { INotification } from './INotification';
+import { Notification } from '../utils/Notification/Notification';
+import { useSelector } from 'react-redux';
 
 const token = localStorage.getItem("token");
 
@@ -14,6 +16,10 @@ const config = {
 export const Notifications = () => {
     const [notifications, setNotifications] = useState<INotification[]>();
    
+    const notification = useSelector((state: any) => {
+        return state.notification;
+    });
+
     async function init() {
         const notif = await http.get("/notifications", "");
         setNotifications(notif);
@@ -22,6 +28,8 @@ export const Notifications = () => {
     useEffect(() => {
         init()
     }, [])
+
+    useEffect(() => {init()}, [notification.message])
 
     return(
         <Container>
