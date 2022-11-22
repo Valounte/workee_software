@@ -20,7 +20,7 @@ export const NotificationCard = (props: NotificationCardProps) => {
         <Box marginBottom={marginBot}>
             <Card elevation={5}>
                 <Box padding={2}>
-                    <Stack direction={"row"}>
+                    <Stack direction={"row"} justifyContent={"space-between"}>
                         <Stack direction={"column"} spacing={{sm: -2}}>
                             <Stack justifyContent={"flex-start"} direction={"row"}>
                                 <Avatar>{senderFirstname.substring(0,1)}</Avatar>
@@ -29,11 +29,11 @@ export const NotificationCard = (props: NotificationCardProps) => {
                                     <Typography fontSize='0.75em' paddingLeft={2} paddingTop={0.5}>{format(new Date(sentAt),"dd/MM/yyyy HH:mm:ss")}</Typography>
                                 </Stack>
                             </Stack>
-                            <Stack justifyContent={"flex-start"} alignItems={"flex-start"} paddingLeft={7}>
+                            <Stack justifyContent={"flex-start"} alignItems={"flex-start"} textAlign={"left"} paddingLeft={7}>
                                 <Typography fontSize='1em' >{message}</Typography>
                             </Stack>
                         </Stack>
-                        <Stack justifyContent={"flex-end"} marginLeft={40}>
+                        <Stack justifyContent={"flex-end"}>
                             <AlertBadge alertType={alertLevel}/>
                    </Stack>
                </Stack>
