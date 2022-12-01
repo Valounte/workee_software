@@ -9,7 +9,7 @@ export class feedBack {
     constructor(cronInfo: string) {
         Logger.Info("Cron started at " + cronInfo);
         
-        this.task = cron.schedule("*/10 * * * * *", () => {
+        this.task = cron.schedule(cronInfo, () => {
             Main.win.webContents.send('feedback:launch', {});
         });
 
