@@ -1,4 +1,4 @@
-import { DialogContentText} from '@mui/material';
+import { DialogContentText, Switch} from '@mui/material';
 import * as React from 'react';
 import { Button, Container, Dialog, DialogTitle } from '../../../ui-kit';
 import './FeedBackDialog.css';
@@ -20,6 +20,7 @@ interface IFeedBackDialogProps {
 function FeedBackDialog(props: IFeedBackDialogProps) {
 
     const [valueRating, setValueRating] = React.useState<number | null>();
+    const [anonymous, setAnonymous] = React.useState(false);
 
     const StyledRating = styled(Rating)(({ theme }) => ({
         '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -61,7 +62,7 @@ function FeedBackDialog(props: IFeedBackDialogProps) {
       }
 
     async function handleClick() {
-        let result = await http.post("/submit-daily-feedback", {satisfactionDegree: valueRating, isAnonymous: false});
+        let result = await http.post("/submit-daily-feedback", {satisfactionDegree: valueRating, isAnonymous: anonymous});
         if (result.message) {
           props.setOpen(false);
         }
@@ -84,6 +85,9 @@ function FeedBackDialog(props: IFeedBackDialogProps) {
                     getLabelText={(value: number) => customIcons[value].label}
                     highlightSelectedOnly
                 />
+            </Container>
+            <Container>
+            <DialogContentText>Anonyme</DialogContentText><Switch checked={anonymous} onChange={() => setAnonymous(!anonymous)} />
             </Container>
             <Container>
                 <Button disabled={(valueRating) ? false : true} variant="contained" color="secondary" onClick={handleClick}>Envoyer</Button>
