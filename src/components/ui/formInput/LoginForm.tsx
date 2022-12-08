@@ -4,7 +4,6 @@ import { Input } from '../input/Input';
 import './LoginForm.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import { Stack, Typography } from '@mui/material';
 import { Config } from '../../../Config';

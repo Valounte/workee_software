@@ -1,9 +1,7 @@
 import { ipcMain } from "electron";
 import Command from "../../utils/Command";
 import Logger from "../../utils/Logger";
-import isDev = require('electron-is-dev');
 import Data from "../data/Data";
-import { time } from "console";
 import { Config } from "../../config";
 
 function timeout(ms) {
@@ -14,18 +12,19 @@ function timeout(ms) {
 export default class WiFi {
     constructor() {
         Logger.Info("Wifi module loaded");
-
-        WiFi.checkStatusWifi();
+        if (!Config.isWindows) {
+            WiFi.checkStatusWifi();
+        }
 
         this.initIpc();
         
     }
  
     private static async checkStatusWifi() {
-        let wifi = await Command.execute("wpa_cli status");
+        const wifi = await Command.execute("wpa_cli status");
         try {
-            let line3 = wifi.split("\n")[3];
-            let ssid = line3.split("=");
+            const line3 = wifi.split("\n")[3];
+            const ssid = line3.split("=");
 
             if (ssid[0] === "ssid") {
                 await Data.setSaveData("wifi", {
@@ -54,8 +53,8 @@ export default class WiFi {
     }
 
     private async getWifi() {
-        let wifiAvailableList = [];
-        var wifiscan = (Config.isWindows) ? `bssid / frequency / signal level / flags / ssid
+        const wifiAvailableList = [];
+        let wifiscan = (Config.isWindows) ? `bssid / frequency / signal level / flags / ssid
 f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman
 f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman111
 f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman11
@@ -65,12 +64,12 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi(
         
         
         wifiscan = wifiscan.replace(/\t/g, " ");
-        var listwifi = wifiscan.split("\n");
+        const listwifi = wifiscan.split("\n");
 
         for (let i = 1; i < listwifi.length; i++) {
-            let wifi = listwifi[i];
-            let wifiinfo = wifi.split(" ");
-            let wifiobj = {
+            const wifi = listwifi[i];
+            const wifiinfo = wifi.split(" ");
+            const wifiobj = {
                 ssid: wifiinfo[4],
                 bssid: wifiinfo[0],
                 frequency: wifiinfo[1],
@@ -86,12 +85,12 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi(
     public async connectWifi(event, args) {
         if (args.ssid && args.password) {
             if (!Config.isWindows) {
-                console.log(await Command.execute("wpa_cli remove_network 0"));
-                console.log(await Command.execute("wpa_cli add_network"));
-                console.log(await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'"));
-                console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
-                console.log(await Command.execute("wpa_cli enable_network 0"));
-                console.log(await Command.execute("wpa_cli select_network 0"));
+                // console.log(await Command.execute("wpa_cli remove_network 0"));
+                // console.log(await Command.execute("wpa_cli add_network"));
+                // console.log(await Command.execute("wpa_cli set_network 0 ssid '\"" + args.ssid + "\"'"));
+                // console.log(await Command.execute("wpa_cli set_network 0 psk '\"" + args.password + "\"'"));
+                // console.log(await Command.execute("wpa_cli enable_network 0"));
+                // console.log(await Command.execute("wpa_cli select_network 0"));
                 await timeout(5000);
                 if (WiFi.checkStatusWifi()) {
                     await Data.setSaveData("wifi", args);

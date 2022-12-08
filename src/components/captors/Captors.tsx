@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Grid } from "../../ui-kit";
 import http from "../../utils/http/httpService";
@@ -17,7 +18,6 @@ export const Captors = () => {
 
     const [temp, setTemp] = useState(0);
     const [humidity, setHumidity] = useState(0);
-    const [recommandation, setRecommandation] = useState("");
 
     const bindEvents = () => {
         var win = window as any;

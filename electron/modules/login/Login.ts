@@ -2,11 +2,6 @@ import { ipcMain } from "electron";
 import Logger from "../../utils/Logger";
 import Data from "../data/Data";
 
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
 export default class Login {
     constructor() {
         Logger.Info("Login module loaded");

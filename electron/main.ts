@@ -9,11 +9,13 @@ import Data from './modules/data/Data';
 import { Config } from './config';
 import Captor from './modules/captor/captor';
 import Login from './modules/login/Login';
+import { feedBackJobs } from './modules/jobs/feedBackJobs';
 // import { Init } from './init';
 
 export default class Main {
     static win: Electron.BrowserWindow | null;
     static application: Electron.App;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static BrowserWindow: any;
     private static onWindowAllClosed() {
         if (process.platform !== 'darwin') {
@@ -31,6 +33,7 @@ export default class Main {
         Logger.Info("Appli launched");
         new WiFi();
         new Login();
+        new feedBackJobs();
         Captor.init();
         Data.initIpc();
     }
@@ -62,8 +65,6 @@ export default class Main {
         }
         
         // Automatically open Chrome's DevTools in development mode.
-        if (!app.isPackaged) {
-        }
         protocol.registerHttpProtocol(
             "file",
             (request, callback) => {

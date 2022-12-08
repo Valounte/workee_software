@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Logo from '../../assets/logo/logo-workee.png'
 
 import { Button } from '../ui/button/Button';
 import { FormInput } from '../ui/formInput/FormInput';

@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Notification } from '../utils/Notification/Notification';
 import { useEffect } from 'react';
+import Dialog from '../dialog/Dialog';
 
 function Base() {
     const notification = useSelector((state: any) => {
@@ -22,6 +23,7 @@ function Base() {
             }>
             <div className='stickyDiv'>
                 <Outlet />
+                <Dialog />
             </div>
             </Notification>
         </div>

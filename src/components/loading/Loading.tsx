@@ -4,9 +4,23 @@ import './Loading.css';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setWifi } from "../../store";
+import http from "../../utils/http/httpService";
 function Loading() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const createJob = async () => {
+        const cronList = await http.get("/daily-feedback-preferences", "");
+        var win = window as any;
+
+        for (let i = 0; i < cronList.length; i++) {
+            const element = cronList[i];
+            const cron = element.cronjobTime;
+            const id = element.teamId;
+            await win.api.createFeedBack({ cron, id });
+        }
+    };
+
     const createDataFile = async () => {
         setTimeout(async () => {
             var win = window as any;
@@ -20,6 +34,7 @@ function Loading() {
             }
             if (wifi && token) {
                 localStorage.setItem("token", token);
+                createJob();
                 navigate("/w/home");
             } else {
                 navigate("/w/config");
