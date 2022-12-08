@@ -8,6 +8,7 @@ import Bell from "./Bell/Bell";
 import { setTopic } from "../../../store/notificationStore";
 import { Config } from "../../../Config";
 import UserIcon from "./UserIcon/UserIcon";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
     const [dateNow, setDateNow] = useState(""),
@@ -15,7 +16,7 @@ function NavBar() {
         wifi = useSelector((state: any) => {
             return state.wifi;
         });
-    
+    const navigate = useNavigate();
     useEffect(() => {
         init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,6 +30,10 @@ function NavBar() {
         let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
         let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
         return `${hour}:${minute}`;
+    }
+
+    const returnHome = () => {
+        navigate("/w/home")
     }
 
     const init = async () => {
@@ -48,7 +53,7 @@ function NavBar() {
         <div>
             <nav className="navbar navbar-expand-sm bg-workee">
                 <div className="container-fluid">
-                    <img src={Logo} alt="" className="d-inline-block align-text-top logoMenu"/>
+                    <img onClick={returnHome} src={Logo} alt="" className="d-inline-block align-text-top logoMenu"/>
                     
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">

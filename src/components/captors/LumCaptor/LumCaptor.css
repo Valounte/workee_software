@@ -1,0 +1,59 @@
+.textSensor {
+    font-size: 25px;
+}
+.textTitleSensor {
+    position: relative;
+    font-size: 20px;
+    top: -3px;
+}
+.unitSensor {
+    margin: 0px;
+    font-weight: 500;
+    line-height: 1;
+    font-family: Rubik;
+    text-align: center;
+    color: rgb(255, 152, 0);
+    white-space: pre-line;
+}
+.iconSensor {
+    width: 20px;
+}
+.iconTemp {
+    font-size: 40px;
+    position: relative;
+    top: 5px
+}
+.temperatureNumber {
+    text-align: right;
+    font-size: 40px!important;
+}
+.temperatureFleche {
+    position: relative;
+    text-align: center;
+    top: -80px;
+    left: 120px;
+}
+.iconTempFleche {
+    font-size: 80px;
+}
+.cardCaptor {
+    margin-top: 10px;
+}
+.tempIndicator {
+    position: relative;
+    left: -10px;
+    margin-bottom: -58px!important;
+}
+
+.flecheUp {
+    color: red;
+    font-size: 45px;
+}
+.flecheDown {
+    color: #3A93AF;
+    font-size: 45px;
+}
+.remove {
+    font-size: 45px;
+}
+

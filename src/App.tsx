@@ -17,6 +17,8 @@ axios.defaults.baseURL = "https://workee-back.brangers.eu/api";
 
 function App() {
   const [keyboardInput, setKeyboardInput] = useState<any>();
+  const [layout, setLayout] = useState<string>("default");
+
   const keyboard = useSelector((state: any) => {
     return state.keyboard;
   });
@@ -30,6 +32,15 @@ function App() {
     keyboardInput.setInput(input);
     keyboard.props.setCustom(input);
   }
+
+  const onKeyPress = (button: String) => {
+    if (button === "{shift}" || button === "{lock}") handleShift();
+  }
+
+  const handleShift = () => {
+    setLayout(layout === "default" ? "shift" : "default");
+  }
+
   return (
     <div className="App">
       <Routes>
@@ -44,7 +55,7 @@ function App() {
       </Routes>
       {keyboard.keyboardActivate && 
                 <div className="keyboard">
-                    <Keyboard keyboardRef={(r: any) => setKeyboardInput(r)} className="" onChange={onChange}/>
+                    <Keyboard layoutName={layout} keyboardRef={(r: any) => setKeyboardInput(r)} className="" onKeyPress={onKeyPress} onChange={onChange}/>
                 </div>}
     </div>
   );

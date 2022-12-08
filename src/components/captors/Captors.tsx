@@ -5,6 +5,8 @@ import http from "../../utils/http/httpService";
 import { HumCaptor } from "./HumCaptor/HumCaptor";
 import { TempCaptor } from "./TempCaptor/TempCaptor"
 import "./Captors.css";
+import { LumCaptor } from "./LumCaptor/LumCaptor";
+import { SoundCaptor } from "./SoundCaptor/SoundCaptor";
 
 interface ITempHumCaptor {
     temperature: number;
@@ -51,10 +53,10 @@ export const Captors = () => {
             </Grid>
             <Grid container display="flex" justifyContent="center" alignItems="center"  spacing={5}>
                 <Grid alignItems="center" item>
-                    <TempCaptor temperature={temp}/>
+                    <LumCaptor luminosity={0}/>
                 </Grid>
                 <Grid alignItems="center" item>
-                    <HumCaptor humidity={humidity}/>
+                    <SoundCaptor sound={0}/>
                 </Grid>
             </Grid>
         </div>
