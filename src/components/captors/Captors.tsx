@@ -11,6 +11,8 @@ import { SoundCaptor } from "./SoundCaptor/SoundCaptor";
 interface ITempHumCaptor {
     temperature: number;
     humidity: number;
+    luminosity: number;
+    sound: number;
 }
 
 export const Captors = () => {
@@ -20,6 +22,8 @@ export const Captors = () => {
 
     const [temp, setTemp] = useState(0);
     const [humidity, setHumidity] = useState(0);
+    const [luminosity, setLuminosity] = useState(0);
+    const [sound, setSound] = useState(0);
 
     const bindEvents = () => {
         var win = window as any;
@@ -28,8 +32,12 @@ export const Captors = () => {
             if (value.temperature && localStorage.getItem("token")) {
                 setTemp(value.temperature);
                 setHumidity(value.humidity);
+                setLuminosity(value.luminosity);
+                setSound(value.sound);
                 http.post("/temperature", {value: value.temperature});
                 http.post("/humidity", {value: value.humidity});
+                http.post("/luminosity", {value: value.luminosity});
+                http.post("/sound", {value: value.sound});
             }
         });
     };
@@ -53,10 +61,10 @@ export const Captors = () => {
             </Grid>
             <Grid container display="flex" justifyContent="center" alignItems="center"  spacing={5}>
                 <Grid alignItems="center" item>
-                    <LumCaptor luminosity={0}/>
+                    <LumCaptor luminosity={luminosity}/>
                 </Grid>
                 <Grid alignItems="center" item>
-                    <SoundCaptor sound={0}/>
+                    <SoundCaptor sound={sound}/>
                 </Grid>
             </Grid>
         </div>
