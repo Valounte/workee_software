@@ -30,6 +30,10 @@ export const Captors = () => {
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
             if (value.temperature && localStorage.getItem("token")) {
+                localStorage.setItem("temperature", value.temperature.toString());
+                localStorage.setItem("humidity", value.humidity.toString());
+                localStorage.setItem("luminosity", value.luminosity.toString());
+                localStorage.setItem("sound", value.sound.toString());
                 setTemp(value.temperature);
                 setHumidity(value.humidity);
                 setLuminosity(value.luminosity);
@@ -44,8 +48,10 @@ export const Captors = () => {
 
     const init = async () => {
         bindEvents();
-        var test = await http.get("/current_temperature", "");
-        console.log(test);
+        setTemp(Number(localStorage.getItem("temperature")));
+        setHumidity(Number(localStorage.getItem("humidity")));
+        setLuminosity(Number(localStorage.getItem("luminosity")));
+        setSound(Number(localStorage.getItem("sound")));
         setInterval(() => {
         }, 1000);
     }

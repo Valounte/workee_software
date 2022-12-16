@@ -13,8 +13,12 @@ export const HumCaptor = (props: IPropsTempHumCaptor) => {
 
     const [oldTemp, setOldTemp] = useState(0);
     const [tempType, setTempType] = useState(0);
+    const [firstTemp, setFirstTemp] = useState(true);
     useEffect(() => {
         setTempType(props.humidity - oldTemp);
+        if (props.humidity !== 0) {
+            setFirstTemp(false);
+        }
         setOldTemp(props.humidity);
     }, [props.humidity]);
 
@@ -33,7 +37,8 @@ export const HumCaptor = (props: IPropsTempHumCaptor) => {
                                 {tempType === 0 && <span className="material-symbols-outlined remove">remove</span>}
                             </Typography>
                             <Typography className="temperatureNumber">
-                                <span className="">{props.humidity} <span className="unitSensor">%</span></span>
+                            {!firstTemp && <span className="">{props.humidity} <span className="unitSensor">%</span></span>}
+                                {firstTemp && <span className="h5">Pas de donnée</span>}
                             </Typography>
                         </div>
                         <hr/>
