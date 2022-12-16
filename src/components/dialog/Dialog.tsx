@@ -9,6 +9,10 @@ function Dialog() {
     async function init() {
         let win = window as any;
 
+        win.api.sendMessage((event: any, value: any) => {
+            console.log(value);
+        });
+
         win.api.launchFeedBack((event: any, value: any) => {
             setOpen(true);
         });
