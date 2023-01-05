@@ -21,6 +21,8 @@ jobs:
     - name: install dependencies
       run: npm install
     - name: copy config.ts
-      run: cp electron/config.ts.template electron/config.ts
+      env: 
+        WHO_TO_TRUST1: '${{ secrets.REACT }}'
+      run: 'echo "$WHO_TO_TRUST1" > electron/config.ts'
     - name: build application
       run: npm run electron:build
