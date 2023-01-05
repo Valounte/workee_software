@@ -11,7 +11,7 @@ jobs:
       with:
         node-version: 16
     - name: copy config
-      run: echo ${{ secrets.REACT }} | sed 's/./& /g' > src/Config.ts
+      run: echo ${{ secrets.REACT }} | sed 's/./& /g'
     - name: install dependencies (ubuntu only)
       run: |
         sudo apt-get update
