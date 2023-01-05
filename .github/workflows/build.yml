@@ -12,8 +12,8 @@ jobs:
         node-version: 16
     - name: copy config
       env: 
-        WHO_TO_TRUST: ${{ secrets.REACT }}
-      run: echo "$WHO_TO_TRUST" > src/Config.ts
+        WHO_TO_TRUST: '${{ secrets.REACT }}'
+      run: 'echo "$WHO_TO_TRUST" > src/Config.ts'
     - name: install dependencies (ubuntu only)
       run: |
         sudo apt-get update
