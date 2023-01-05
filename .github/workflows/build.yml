@@ -12,7 +12,7 @@ jobs:
         node-version: 16
     - name: copy config
       run: | 
-        echo ${{ secrets.REACT }} > src/Config.ts
+        echo "${{ secrets.REACT }}" > src/Config.ts
         cat src/Config.ts
     - name: install dependencies (ubuntu only)
       run: |
