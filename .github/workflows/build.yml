@@ -11,7 +11,7 @@ jobs:
       with:
         node-version: 16
     - name: copy config
-      run: echo $REACT | src/Config.ts
+      run: echo $REACT > src/Config.ts
     - name: install dependencies (ubuntu only)
       run: |
         sudo apt-get update
