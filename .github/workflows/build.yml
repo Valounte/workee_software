@@ -1,5 +1,5 @@
 name: "build"
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -24,6 +24,8 @@ jobs:
       env: 
         WHO_TO_TRUST1: '${{ secrets.ELECTRON }}'
       run: 'echo "$WHO_TO_TRUST1" > electron/config.ts'
+    - name: linter
+      run: npm run lint
     - name: build application
       run: npm run electron:build
     - name: Upload math result for job 2
