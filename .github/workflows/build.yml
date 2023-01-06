@@ -26,3 +26,12 @@ jobs:
       run: 'echo "$WHO_TO_TRUST1" > electron/config.ts'
     - name: build application
       run: npm run electron:build
+    - name: Download math result for job 1
+      uses: actions/download-artifact@v3
+      with:
+        name: workee
+    - name: Upload math result for job 2
+      uses: actions/upload-artifact@v3
+      with:
+        name: workee
+        path: dist/workee_0.1.0_armv7l.deb
