@@ -1,5 +1,5 @@
 name: "build"
-on: [pull_request]
+on: [push]
 
 jobs:
   build:
@@ -10,10 +10,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16
-    - name: copy config
-      env: 
-        WHO_TO_TRUST: '${{ secrets.REACT }}'
-      run: 'echo "$WHO_TO_TRUST" > src/Config.ts'
     - name: install dependencies (ubuntu only)
       run: |
         sudo apt-get update
@@ -21,15 +17,6 @@ jobs:
     - name: install dependencies
       run: npm install
     - name: copy config.ts
-      env: 
-        WHO_TO_TRUST1: '${{ secrets.ELECTRON }}'
-      run: 'echo "$WHO_TO_TRUST1" > electron/config.ts'
-    - name: linter
-      run: npm run lint
+      run: cp electron/config.ts.template electron/config.ts
     - name: build application
       run: npm run electron:build
-    - name: Upload math result for job 2
-      uses: actions/upload-artifact@v3
-      with:
-        name: workee
-        path: dist/workee_0.1.0_armv7l.deb
