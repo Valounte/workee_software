@@ -2,6 +2,7 @@
 import { Card, CardActionArea, CardContent } from "@mui/material";
 import { useEffect, useState } from "react";
 import { LuminosityIcon, Typography } from "../../../ui-kit";
+import { ThermometerIcon } from "../../../ui-kit/icons/Metrics/Thermometer";
 import "./LumCaptor.css";
 
 interface IPropsLumCaptor {
