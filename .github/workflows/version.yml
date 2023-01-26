@@ -13,7 +13,9 @@ jobs:
         node-version: 14
     - name: Get current branch name
       id: get_branch
-      run: echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
+      run: | 
+        echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
+        echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
     - name: Extract semantic version from branch name
       run: |
         SEMANTIC_VERSION=$( ${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+)
