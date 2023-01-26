@@ -15,23 +15,12 @@ jobs:
       id: get_branch
       run: | 
         echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
-        echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
     - name: Extract semantic version from branch name
       run: |
-        SEMANTIC_VERSION=$( ${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+)
+        "${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+" >> SEMANTIC_VERSION
         if [[ ! ${SEMANTIC_VERSION} ]]; then
           echo "Branch name does not match version format, please use the format version: X.Y.Z"
           exit 1
-        fi
-        echo "Semantic version: ${SEMANTIC_VERSION}"
-        echo ::set-output name=semantic_version::${SEMANTIC_VERSION}
-    - name: Check if branch name and tag version match
-      run: |
-        git fetch --tags
-        if [[ $(git tag -l ${SEMANTIC_VERSION}) ]]; then
-          echo "Tag version already exists, please use a new version"
-          exit 1
-        fi
     - name: Create tag
       uses: actions/create-release@v1
       with:
