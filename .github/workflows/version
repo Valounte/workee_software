@@ -1,0 +1,44 @@
+name: Release
+on:
+  push
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - name: Get current branch name
+      id: get_branch
+      run: echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
+    - name: Extract semantic version from branch name
+      run: |
+        echo ${{ steps.get_branch.outputs.branch_name }}
+        SEMANTIC_VERSION=$(echo ${{ steps.get_branch.outputs.branch_name }} | grep -oP "version: (\d+\.\d+\.\d+)")
+        if [[ ! ${SEMANTIC_VERSION} ]]; then
+          echo "Branch name does not match version format, please use the format version: X.Y.Z"
+          exit 1
+        fi
+        echo "Semantic version: ${SEMANTIC_VERSION}"
+        echo ::set-output name=semantic_version::${SEMANTIC_VERSION}
+    - name: Check if branch name and tag version match
+      run: |
+        git fetch --tags
+        if [[ $(git tag -l ${SEMANTIC_VERSION}) ]]; then
+          echo "Tag version already exists, please use a new version"
+          exit 1
+        fi
+    - name: Create tag
+      uses: actions/create-tag@v2
+      with:
+        tag_name: ${{ steps.get_branch.outputs.semantic_version }}
+    - name: Push tags
+      run: git push origin ${{ steps.get_branch.outputs.semantic_version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Success message
+      if: success()
+      run: echo "Successfully created new tag version ${SEMANTIC_VERSION}"
