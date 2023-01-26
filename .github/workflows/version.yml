@@ -17,7 +17,8 @@ jobs:
         echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
     - name: Extract semantic version from branch name
       run: |
-        echo "${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+" >> SEMANTIC_VERSION
+        echo "version=${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+" >> $GITHUB_ENV
+        echo env.version
     - name: Create tag
       uses: actions/create-release@v1
       with:
