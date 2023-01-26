@@ -37,8 +37,6 @@ jobs:
         tag_name: ${{ steps.get_branch.outputs.semantic_version }}
     - name: Push tags
       run: git push origin ${{ steps.get_branch.outputs.semantic_version }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Success message
       if: success()
       run: echo "Successfully created new tag version ${SEMANTIC_VERSION}"
