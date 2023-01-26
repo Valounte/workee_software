@@ -1,4 +1,4 @@
-name: Release
+name: Versionning
 on:
   push
 jobs:
@@ -17,7 +17,7 @@ jobs:
     - name: Extract semantic version from branch name
       run: |
         echo ${{ steps.get_branch.outputs.branch_name }}
-        SEMANTIC_VERSION=$(echo ${{ steps.get_branch.outputs.branch_name }} | grep -oP "version: (\d+\.\d+\.\d+)")
+        SEMANTIC_VERSION=$(echo ${{ steps.get_branch.outputs.branch_name }} | grep -oP (?<=version\s)\d+\.\d+\.\d+
         if [[ ! ${SEMANTIC_VERSION} ]]; then
           echo "Branch name does not match version format, please use the format version: X.Y.Z"
           exit 1
