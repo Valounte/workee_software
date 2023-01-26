@@ -16,7 +16,7 @@ jobs:
       run: echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
     - name: Extract semantic version from branch name
       run: |
-        echo ${{ steps.get_branch.outputs.branch_name }}
+        ${{ steps.get_branch.outputs.branch_name }}
         SEMANTIC_VERSION=$( ${{ steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+)
         if [[ ! ${SEMANTIC_VERSION} ]]; then
           echo "Branch name does not match version format, please use the format version: X.Y.Z"
