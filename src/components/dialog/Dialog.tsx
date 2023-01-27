@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Dialog.css';
 import FeedBackDialog from './FeedBackDialog/FeedBackDialog';
-import InfoMessageDialog from './InfoMessageDialog/FeedBackDialog';
+import InfoMessageDialog from './InfoMessageDialog/InfoMessageDialog';
 
 export interface IInfoMessage {
     message: string | null;
@@ -13,17 +13,15 @@ function Dialog() {
     const [open, setOpen] = useState(false);
     const [messageList, setMessageList] = useState<Array<IInfoMessage>>([]);
 
-    async function readMessage(index: number) {
-        let newMessageList = messageList;
-        newMessageList.splice(index, 1);
-        setMessageList([...newMessageList]);
+    function readMessage(index: number) {
+        setMessageList(prevList => prevList.filter((_, i) => i !== index));
     }
 
     async function init() {
         let win = window as any;
 
         win.api.sendMessage((event: any, value: IInfoMessage) => {
-            let newMessageList = messageList;
+            let newMessageList = [...messageList];
             newMessageList.push(value);
             setMessageList([...newMessageList]);
         });

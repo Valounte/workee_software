@@ -23,6 +23,6 @@ export class MessageJobs {
 
     constructor() { 
         Logger.Info("MessageJobs module loaded");
-        new Message("Pensez bien à vous hydrater toutes les heures", "HYDRATION","* * */2 * * *");
+        new Message("Pensez bien à vous hydrater toutes les heures", "HYDRATION","0 0 */2 * * *");
     }
 }

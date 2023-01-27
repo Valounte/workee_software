@@ -19,9 +19,7 @@ function InfoMessageDialog(props: IMessageDialogProps) {
         props.readMessage(props.index);
         setOpen(false);
     }
-    React.useEffect(() => {
-        console.log(props.message);
-    }, [props.message]);
+
     return (
         <Dialog fullWidth={true} open={open}>
             <DialogTitle>
