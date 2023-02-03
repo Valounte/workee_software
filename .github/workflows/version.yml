@@ -21,11 +21,13 @@ jobs:
         version=$(echo "${{steps.get_branch.outputs.branch_name}}" | grep -oP "(\d+\.\d+\.\d+)")
         echo ::set-output name=version::$version
     - name: Create tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
       run: |
         #!/bin/bash
         git tag $version
         git tag -l
-        hub release $version 
+        GITHUB_TOKEN hub release $version 
     - name: Push tags
       run: git push -u origin --tags
 
