@@ -23,8 +23,8 @@ jobs:
     - name: Create tag
       run: |
         git tag ${version}
-        git tag -l
-        hub release create -a version.yml ${version}
+        echo ::git tag -l
+        
     - name: Push tags
       run: git push -u origin --tags
 
