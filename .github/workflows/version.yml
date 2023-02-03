@@ -20,7 +20,7 @@ jobs:
       id: extract_version
       run: |
         echo ${{ env.BRANCH_NAME }}
-        version=$(echo "${{env.BRANCH_NAME}}" | grep -oP "(\d+\.\d+\.\d+)") >> $GITHUB_ENV
+        version=$(echo "${{env.BRANCH_NAME}}" | grep -oP "\d+\.\d+\.\d+") >> $GITHUB_ENV
         echo ${{env.version}}
     - name: Create tag
       env:
