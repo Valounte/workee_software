@@ -11,11 +11,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14
-    - name: Get current branch name
-      id: get_branch
-      run: | 
-        echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
-    - name: Extract semantic version from branch name
+    - name: Extract_semantic version from branch name
       id: extract_version
       run: |
         version=$(echo "${{steps.get_branch.outputs.branch_name}}" | grep -oP "(\d+\.\d+\.\d+)")
@@ -25,7 +21,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
       run: |
         #!/bin/bash
-        git tag $version
+        version=$( echo "${{git tag}}"" )
         git tag -l
         GITHUB_TOKEN=$GITHUB_TOKEN hub release $version 
     - name: Push tags
