@@ -22,9 +22,10 @@ jobs:
         echo ::set-output name=version::$version
     - name: Create tag
       run: |
-        git tag ${version}
-        echo ::git tag -l
-        
+        #!/bin/bash
+        git tag $version
+        git tag -l
+        hub release $version 
     - name: Push tags
       run: git push -u origin --tags
 
