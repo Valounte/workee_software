@@ -15,6 +15,8 @@ jobs:
       id: get_branch
       run: | 
         echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
+        branchName=$( echo ${ github.head_ref || github.ref_name })
+        echo "$branchName"
     - name: Extract semantic version from branch name
       id: extract_version
       run: |
