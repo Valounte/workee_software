@@ -24,7 +24,7 @@ jobs:
       run: |
         git tag $version
         git tag -l
-        hub release create v$version
+        hub release create $version
     - name: Push tags
       run: git push -u origin --tags
 
