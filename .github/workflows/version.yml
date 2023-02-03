@@ -17,14 +17,14 @@ jobs:
         echo ::set-output name=branch_name::$(echo ${GITHUB_REF#refs/heads/})
     - name: Extract semantic version from branch name
       run: |
-        echo "version=$( ${{steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+)" >> $GITHUB_ENV
-        echo "${{ env.version }}"
+        echo "version=$( ${{steps.get_branch.outputs.branch_name }} | grep -oP version-(\d+\.\d+\.\d+)"
+        echo "${version}"
     - name: Create tag
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ steps.get_branch.outputs.semantic_version }}
+        tag_name: "${version}"
     - name: Push tags
-      run: git push origin ${{ steps.get_branch.outputs.semantic_version }}
+      run: git "push origin ${version}"
     - name: Success message
       if: success()
-      run: echo "Successfully created new tag version ${SEMANTIC_VERSION}"
+      run: echo "Successfully created new tag version ${version}"
