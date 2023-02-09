@@ -33,11 +33,25 @@ function Dialog() {
 
     useEffect(() => {
         init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        console.log(messageList);
+    }, [messageList]);
 
     return (
         <div>
             {open && <FeedBackDialog open={open} setOpen={setOpen}/>}
+            {messageList.map((message, index) => {
+
+                return (
+                    <div key={index}>
+                        <InfoMessageDialog message={message} index={index} readMessage={readMessage}/>
+                    </div>
+                );
+            })}
+{/* {message.message && <InfoMessageDialog message={message} setMessage={setMessage}/>} */}
         </div>
     );
 }

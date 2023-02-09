@@ -10,6 +10,7 @@ import { Config } from './config';
 import Captor from './modules/captor/captor';
 import Login from './modules/login/Login';
 import { feedBackJobs } from './modules/jobs/feedBackJobs';
+import { MessageJobs } from './modules/jobs/messageJobs';
 // import { Init } from './init';
 
 export default class Main {
@@ -34,6 +35,7 @@ export default class Main {
         new WiFi();
         new Login();
         new feedBackJobs();
+        new MessageJobs();
         Captor.init();
         Data.initIpc();
     }

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Card, CardActionArea, CardContent } from "@mui/material";
 import { useEffect, useState } from "react";
-import { LuminosityIcon, SoundIcon, Typography } from "../../../ui-kit";
-import { ThermometerIcon } from "../../../ui-kit/icons/Metrics/Thermometer";
+import { SoundIcon, Typography } from "../../../ui-kit";
 import "./SoundCaptor.css";
 
 interface IPropsSoundCaptor {
