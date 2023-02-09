@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import http from '../../utils/http/httpService';
 import {NotificationCard} from '../ui/NotificationCard/NotificationCard'
 import type { INotification } from './INotification';
+import { Notification } from '../utils/Notification/Notification';
 import { useSelector } from 'react-redux';
 
 export const Notifications = () => {
