@@ -18,6 +18,7 @@ process.once("loaded", () => {
         getTemperatureHumitidy: (callback) => ipcRenderer.on('getTemperatureHumitidy', callback),
         launchFeedBack: (callback) => ipcRenderer.on('feedback:launch', callback),
         createFeedBack: (args) => ipcRenderer.invoke('feedback:create', args),
+        sendMessage: (callback) => ipcRenderer.on('message:send', callback),
         getLogout: (args) => ipcRenderer.invoke('login:logout', args)
     });
 });

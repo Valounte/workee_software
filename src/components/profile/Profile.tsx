@@ -1,5 +1,4 @@
 import { Avatar, Button, Chip, CircularProgress, Container, Stack, styled, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IUser } from "./IUser";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +40,7 @@ export const Profile = () => {
                 setUserLoaded(true);
             }
         }) ();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
   return (
