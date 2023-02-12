@@ -20,7 +20,10 @@ jobs:
       - name: Increment version
         id: version
         run: |
-          current_version=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1) || current_version="version1.0.0"
+          updatetag=$(git fetch --tags --all)
+          upttage=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "${upttage}"
+          current_version=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)"
           echo " current version= ${current_version}"
           major=$(echo "$current_version" | cut -d '.' -f 1)
           minor=$(echo "$current_version" | cut -d '.' -f 2)
