@@ -14,8 +14,8 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "${branch_name}"
-          branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')  >> $GITHUB_ENV
-          echo "${env.branch_type}" 
+          branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
+          echo "branch_type=${branch_type}" >> $GITHUB_ENV
 
       - name: Increment version
         id: version
@@ -25,8 +25,8 @@ jobs:
           major=$(echo "$current_version" | cut -d '.' -f 1)
           minor=$(echo "$current_version" | cut -d '.' -f 2)
           patch=$(echo "$current_version" | cut -d '.' -f 3)
-          echo "${env.branch_type}"
-          case ${env.branch_type} in
+          echo "${{ env.branch_type }}"
+          case ${{ env.branch_type }} in
             "feature")
               major=$((major+1))
               patch=0
