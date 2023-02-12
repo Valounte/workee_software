@@ -1,6 +1,9 @@
 name: Versionning
 on:
-  push
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 env:
   TAG_PREFIX: "version"
 
