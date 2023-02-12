@@ -14,7 +14,7 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           branch_type=$(echo "$branch_name" | sed 's/^[^-]*-//;s/-.*$//')
-          echo "$branch-type"
+          echo "${branch_type}"
 
       - name: Increment version
         id: version
