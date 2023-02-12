@@ -20,14 +20,14 @@ jobs:
       - name: Increment version
         id: version
         run: |
-          updatetag=$(git fetch --tags --all)
+          updatetag=$(git fetch --tags)
           upttage=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "${upttage}"
           
           echo " current version= ${upttage}"
-          major=$(echo "$upttage" | cut -d '.' -f 1)
-          minor=$(echo "$upttage" | cut -d '.' -f 2)
-          patch=$(echo "$upttage" | cut -d '.' -f 3)
+          major=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 1)
+          minor=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 2)
+          patch=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 3)
           echo "major = ${major}"
           echo "minor = ${minor}"
           echo "patch = ${patch}"
