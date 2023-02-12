@@ -13,6 +13,7 @@ jobs:
       - name: Extract branch information
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
+          echo "${branch_name}"
           branch_type=$(echo "$branch_name" | sed 's/^[^-]*-//;s/-.*$//')
           echo "${branch_type}"
 
