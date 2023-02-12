@@ -50,12 +50,8 @@ jobs:
           esac
           new_version="version${major}.${minor}.${patch}"
           git tag "$TAG_PREFIX$new_version"
+          echo "${new_version}"
           echo "$new_version" >> version.txt
-
-      - name: Generate changelog
-        run: |
-          previous_version=$(tail -n 1 version.txt)
-          git log --pretty=format:"%s" "$previous_version"..HEAD > changelog.txt
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/hotfix')
