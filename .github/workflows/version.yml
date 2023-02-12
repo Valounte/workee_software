@@ -12,12 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Extract branch information
         run: |
-            git_tag=$(git tag -l)
-            echo "tag actuel ${git_tag}"
-            branch_name=${GITHUB_REF#refs/heads/}
-            ticket_number=${branch_name%%-*}
-            branch_type=${branch_name#*-}
-            branch_type=${branch_type%%-*}
+          branch_name=${GITHUB_REF#refs/heads/}
+          branch_type=$(echo "$branch_name" | sed 's/^[^-]*-//;s/-.*$//')
 
       - name: Increment version
         id: version
