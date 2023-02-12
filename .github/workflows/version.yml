@@ -14,7 +14,7 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "${branch_name}"
-          branch_type=$(echo "$branch_name" | sed 's/^[^-]*-//;s/-.*$//')
+          branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
           echo "${branch_type}"
 
       - name: Increment version
