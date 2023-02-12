@@ -12,8 +12,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Extract branch information
         run: |
-          current_version=$(git describe --tags --abbrev=0)
-          echo "${current_version}"
           branch_name=${GITHUB_REF#refs/heads/}
           echo "${branch_name}"
           branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
@@ -22,7 +20,7 @@ jobs:
       - name: Increment version
         id: version
         run: |
-          current_version=$(git describe --tags --abbrev=0)
+          current_version=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
           echo "check ici "
           major=$(echo "$current_version" | \d )
           minor=$(echo "$current_version" | \d.\d )
