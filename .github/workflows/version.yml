@@ -1,0 +1,63 @@
+name: Versionning
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+env:
+  TAG_PREFIX: "version"
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Extract branch information
+        run: |
+          branch_name=${GITHUB_REF#refs/heads/}
+          echo "${branch_name}"
+          branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
+          echo "branch_type=${branch_type}" >> $GITHUB_ENV
+
+      - name: Increment version
+        id: version
+        run: |
+          updatetag=$(git fetch --tags)
+          upttage=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "${upttage}"
+          
+          echo " current version= ${upttage}"
+          major=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 1)
+          minor=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 2)
+          patch=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 3)
+          echo "major = ${major}"
+          echo "minor = ${minor}"
+          echo "patch = ${patch}"
+          echo "branch type variable before switch case => ${{ env.branch_type }}"
+          case ${{ env.branch_type }} in
+            "feature")
+              major=$((major+1))
+              patch=0
+              ;;
+            "hotfix")
+              minor=$((minor+1))
+              ;;
+            "bugfix")
+              patch=$((patch+1))
+              ;;
+            *)
+              echo "Invalid branch type: $branch_type"
+              exit 1
+              ;;
+          esac
+          new_version="version${major}.${minor}.${patch}"
+          git tag "$TAG_PREFIX$new_version"
+          echo "${new_version}"
+          echo "$new_version" >> version.txt
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/hotfix')
+        run: |
+          git push --tags
+
