@@ -1,35 +1,56 @@
 name: Versionning
 on:
   push
+env:
+  TAG_PREFIX: "v"
+
 jobs:
-  release:
+  version:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16
-    - name: Get current branch name
-      id: get_branch
-      shell: bash
-      run: | 
-        echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV    
-    - name: Extract semantic version from branch name
-      id: extract_version
-      run: |
-        echo ${{ env.BRANCH_NAME }}
-        version=$(echo "${{env.BRANCH_NAME}}" | grep -oP "version-\d+\.\d+\.\d+") >> $GITHUB_ENV
-        echo ${{env.version}}
-    - name: Create tag
-      env:
-        GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
-      run: |
-        #!/bin/bash
-        git tag $version
-        git tag -l
-        GITHUB_TOKEN=$GITHUB_TOKEN hub release $version 
-    - name: Push tags
-      run: git push -u origin --tags
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract branch information
+        run: |
+          branch_name=${GITHUB_REF#refs/heads/}
+          ticket_number=${branch_name%%-*}
+          branch_type=${branch_name#*-}
+          branch_type=${branch_type%%-*}
+
+      - name: Increment version
+        id: version
+        run: |
+          current_version=$(git describe --tags --match "$TAG_PREFIX*" --abbrev=0)
+          major=$(echo "$current_version" | cut -d '.' -f 1)
+          minor=$(echo "$current_version" | cut -d '.' -f 2)
+          patch=$(echo "$current_version" | cut -d '.' -f 3)
+          case $branch_type in
+            "feature")
+              major=$((major+1))
+              patch=0
+              ;;
+            "hotfix")
+              minor=$((minor+1))
+              ;;
+            "bugfix")
+              patch=$((patch+1))
+              ;;
+            *)
+              echo "Invalid branch type: $branch_type"
+              exit 1
+              ;;
+          esac
+          new_version="version${major}.${minor}.${patch}"
+          git tag "$TAG_PREFIX$new_version"
+          echo "$new_version" >> version.txt
+
+      - name: Generate changelog
+        run: |
+          previous_version=$(tail -n 1 version.txt)
+          git log --pretty=format:"%s" "$previous_version"..HEAD > changelog.txt
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/hotfix')
+        run: |
 
