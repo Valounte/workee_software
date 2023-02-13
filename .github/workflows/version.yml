@@ -2,7 +2,7 @@ name: Versionning
 on:
   push 
 env:
-  TAG_PREFIX: "version"
+  TAG_PREFIX: "v"
 
 jobs:
   version:
@@ -51,10 +51,5 @@ jobs:
           new_version="version${major}.${minor}.${patch}"
           git tag "$TAG_PREFIX$new_version"
           echo "${new_version}"
-          echo "$new_version" >> version.txt
-
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/hotfix')
-        run: |
-          git push --tags
+          git describe
 
