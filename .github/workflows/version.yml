@@ -10,13 +10,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-        
-      - name: Configure Git identity
-        run: |
-          git_user=${GITHUB_ACTOR:-github-actions}
-          git config --global user.email "${{ env.GITHUB_ACTOR }}@users.noreply.github.com"
-          git config --global user.name "${{ env.GITHUB_ACTOR }}"
           
       - name: Extract branch information
         run: |
@@ -57,6 +50,9 @@ jobs:
               ;;
           esac
           new_version="version${major}.${minor}.${patch}"
+          git_user=${GITHUB_ACTOR:-github-actions}
+          git config --global user.email "${{ env.GITHUB_ACTOR }}@users.noreply.github.com"
+          git config --global user.name "${{ env.GITHUB_ACTOR }}"
           git tag -a ${TAG_PREFIX}${major}.${minor}.${patch} -m "$new_version"
           git push origin ${TAG_PREFIX}${major}.${minor}.${patch}
           echo "${new_version}"
