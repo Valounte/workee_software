@@ -1,9 +1,7 @@
 name: Versionning
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - main
+    types: [opened]
 env:
   TAG_PREFIX: "version"
 
