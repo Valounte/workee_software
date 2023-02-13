@@ -14,6 +14,7 @@ jobs:
         
       - name: Configure Git identity
         run: |
+          git_user=${GITHUB_ACTOR:-github-actions}
           git config --global user.email "${{ env.GITHUB_ACTOR }}@users.noreply.github.com"
           git config --global user.name "${{ env.GITHUB_ACTOR }}"
           
