@@ -16,7 +16,14 @@ jobs:
           echo "${branch_name}"
           branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
           echo "branch_type=${branch_type}" >> $GITHUB_ENV
-
+          
+      - name: Configure Git identity
+        uses: actions/github-script@0.5.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
       - name: Increment version
         id: version
         run: |
