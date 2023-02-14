@@ -1,11 +1,8 @@
 name: Versionning
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
+  push 
 env:
-  TAG_PREFIX: "version"
+  TAG_PREFIX: "v"
 
 jobs:
   version:
@@ -13,13 +10,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+          
       - name: Extract branch information
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "${branch_name}"
           branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
           echo "branch_type=${branch_type}" >> $GITHUB_ENV
-
+          
       - name: Increment version
         id: version
         run: |
@@ -52,12 +50,10 @@ jobs:
               ;;
           esac
           new_version="version${major}.${minor}.${patch}"
-          git tag "$TAG_PREFIX$new_version"
+          git_user=${GITHUB_ACTOR:-github-actions}
+          git config --global user.email "${git_user}@users.noreply.github.com"
+          git config --global user.name "${git_user}"
+          git tag -a ${TAG_PREFIX}${major}.${minor}.${patch} -m "$new_version"
+          git push origin ${TAG_PREFIX}${major}.${minor}.${patch}
           echo "${new_version}"
-          echo "$new_version" >> version.txt
-
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/heads/hotfix')
-        run: |
-          git push --tags
 
