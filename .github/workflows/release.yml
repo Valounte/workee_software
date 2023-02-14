@@ -13,14 +13,16 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+    - name: Get latest tag name
+      run: echo ::set-output name=tag::$(git describe --tags $(git rev-list --tags --max-count=1))
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: Automated release created by GitHub Actions.
+        tag_name: ${{ steps.get_latest_tag_name.outputs.tag }}
+        release_name: Release ${{ steps.get_latest_tag_name.outputs.tag }}
+        body: Automated release created by GitHub Actions <3 .
         draft: false
         prerelease: false
