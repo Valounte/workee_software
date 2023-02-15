@@ -1,8 +1,6 @@
 name: Versionning
 on:
   push:
-    branches:
-      - ${{ env.GITHUB_WORKFLOW }}
 env:
   TAG_PREFIX: "v"
 
@@ -28,9 +26,9 @@ jobs:
           echo "${upttage}"
           
           echo " current version= ${upttage}"
-          major=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 1)
-          minor=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 2)
-          patch=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 3)
+          major=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 1)
+          minor=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 2)
+          patch=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 3)
           echo "major = ${major}"
           echo "minor = ${minor}"
           echo "patch = ${patch}"
