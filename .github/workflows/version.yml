@@ -26,9 +26,9 @@ jobs:
           echo "${upttage}"
           
           echo " current version= ${upttage}"
-          major=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 1)
-          minor=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 2)
-          patch=$(echo "$upttage"| sed 's/version//' | cut -d '.' -f 3)
+          major=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 1)
+          minor=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 2)
+          patch=$(echo "$upttage"| sed 's/v//' | cut -d '.' -f 3)
           echo "major = ${major}"
           echo "minor = ${minor}"
           echo "patch = ${patch}"
@@ -53,7 +53,7 @@ jobs:
           git_user=${GITHUB_ACTOR:-github-actions}
           git config --global user.email "${git_user}@users.noreply.github.com"
           git config --global user.name "${git_user}"
-          git tag -a ${major}.${minor}.${patch} -m "$new_version"
+          git tag -a ${TAG_PREFIX}${major}.${minor}.${patch} -m "$new_version"
           git push origin ${TAG_PREFIX}${major}.${minor}.${patch}
           echo "${new_version}"
 
