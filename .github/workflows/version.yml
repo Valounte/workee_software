@@ -13,7 +13,7 @@ jobs:
           
       - name: Extract branch information
         run: |
-          branch_name=${GITHUB_REF#refs/heads/}
+          branch_name=${GITHUB_HEAD_REF}
           echo "${branch_name}"
           branch_type=$(echo "$branch_name" | grep -Eo '(feature|hotfix|bugfix)')
           echo "branch_type=${branch_type}" >> $GITHUB_ENV
