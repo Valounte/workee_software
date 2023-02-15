@@ -55,7 +55,7 @@ jobs:
           git_user=${GITHUB_ACTOR:-github-actions}
           git config --global user.email "${git_user}@users.noreply.github.com"
           git config --global user.name "${git_user}"
-          git tag -a ${TAG_PREFIX}${major}.${minor}.${patch} -m "$new_version"
+          git tag -a ${major}.${minor}.${patch} -m "$new_version"
           git push origin ${TAG_PREFIX}${major}.${minor}.${patch}
           echo "${new_version}"
 
