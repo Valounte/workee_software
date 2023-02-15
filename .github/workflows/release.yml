@@ -6,26 +6,28 @@ on:
 jobs:
   create_release:
     runs-on: ubuntu-latest
-    env:
-      LATEST_TAG_NAME: ""
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Fetch latest tags
+      run: git fetch --tags
     - name: Get latest tag name
-      run: echo "LATEST_TAG_NAME=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
+      id: get_latest_tag_name
+      run: echo "::set-output name=tag::$(git tag | sort -V | tail -1)"
     - name: Debug latest tag name
-      run: echo "Latest tag name:${{ env.LATEST_TAG_NAME }}"
+      run: echo "Latest tag name:${{ steps.get_latest_tag_name.outputs.tag }}"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.LATEST_TAG_NAME }}
-        release_name: Release ${{ env.LATEST_TAG_NAME }}
+        tag_name: ${{ steps.get_latest_tag_name.outputs.tag }}
+        release_name: Release ${{ steps.get_latest_tag_name.outputs.tag }}
         body: Automated release created by GitHub Actions.
         draft: false
         prerelease: false
     - name: Debug create release output
       run: echo "${{ steps.create_release.outputs }}"
+
 
