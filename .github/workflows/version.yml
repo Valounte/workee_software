@@ -1,8 +1,6 @@
 name: Versionning
 on:
-  push:
-    branches:
-      - ${{ env.GITHUB_WORKFLOW }}
+  pull_request:
 env:
   TAG_PREFIX: "v"
 
