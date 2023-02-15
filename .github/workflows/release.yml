@@ -12,6 +12,8 @@ jobs:
     - name: Get latest tag name
       id: get_latest_tag_name
       run: echo "::set-output name=tag::$(curl -s https://api.github.com/repos/${{ github.repository }}/git/refs/tags | jq -r '.[].ref' | grep -Eo "[^/]+$" | sort -V | tail -1)"
+    - name: Debug latest tag name
+      run: echo "Latest tag name:${{ steps.get_latest_tag_name.outputs.tag }}"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -20,6 +22,8 @@ jobs:
       with:
         tag_name: ${{ steps.get_latest_tag_name.outputs.tag }}
         release_name: Release ${{ steps.get_latest_tag_name.outputs.tag }}
-        body: Automated release created by GitHub Actions <3 .
+        body: Automated release created by GitHub Actions.
         draft: false
         prerelease: false
+    - name: Debug create release output
+      run: echo "${{ steps.create_release.outputs }}"
