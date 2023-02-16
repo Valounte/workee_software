@@ -7,6 +7,7 @@ import { TempCaptor } from "./TempCaptor/TempCaptor"
 import "./Captors.css";
 import { LumCaptor } from "./LumCaptor/LumCaptor";
 import { SoundCaptor } from "./SoundCaptor/SoundCaptor";
+import { useSelector } from "react-redux";
 
 interface ITempHumCaptor {
     temperature: number;
@@ -19,29 +20,50 @@ export const Captors = () => {
     useEffect(() => {
         init();
     }, []);
+    const preferences = useSelector((state: any) => {
+        return state.notification.preferences;
+    });
+    useEffect(() => {
+        setTempData(preferences.TEMPERATURE);
+    }, [preferences]);
 
     const [temp, setTemp] = useState(0);
     const [humidity, setHumidity] = useState(0);
     const [luminosity, setLuminosity] = useState(0);
     const [sound, setSound] = useState(0);
+    const [tempData, setTempData] = useState(true);
 
     const bindEvents = () => {
         var win = window as any;
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
-            if (value.temperature && localStorage.getItem("token")) {
-                localStorage.setItem("temperature", value.temperature.toString());
-                localStorage.setItem("humidity", value.humidity.toString());
-                localStorage.setItem("luminosity", value.luminosity.toString());
-                localStorage.setItem("sound", value.sound.toString());
-                setTemp(value.temperature);
-                setHumidity(value.humidity);
-                setLuminosity(value.luminosity);
-                setSound(value.sound);
-                http.post("/temperature", {value: value.temperature});
-                http.post("/humidity", {value: value.humidity});
-                http.post("/luminosity", {value: value.luminosity});
-                http.post("/sound", {value: value.sound});
+            if (localStorage.getItem("token")) {
+                // console.log(preferencesData);
+                if (value.temperature) {
+                    localStorage.setItem("temperature", value.temperature.toString());
+                    setTemp(value.temperature);
+                    if (tempData) {
+                        http.post("/temperature", {value: value.temperature});
+                    }
+                } if (value.humidity) {
+                    localStorage.setItem("humidity", value.humidity.toString());
+                    if (tempData) {
+                        http.post("/humidity", {value: value.humidity});
+                    }
+                    setHumidity(value.humidity);
+                } if (value.luminosity) {
+                    localStorage.setItem("luminosity", value.luminosity.toString());
+                    setLuminosity(value.luminosity);
+                    if (tempData) {
+                        http.post("/luminosity", {value: value.luminosity});
+                    }
+                } if (value.sound) {
+                    localStorage.setItem("sound", value.sound.toString());
+                    setSound(value.sound);
+                    if (tempData) {
+                        http.post("/sound", {value: value.sound});
+                    }
+                }
             }
         });
     };
