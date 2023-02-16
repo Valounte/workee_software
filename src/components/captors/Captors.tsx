@@ -7,7 +7,6 @@ import { TempCaptor } from "./TempCaptor/TempCaptor"
 import "./Captors.css";
 import { LumCaptor } from "./LumCaptor/LumCaptor";
 import { SoundCaptor } from "./SoundCaptor/SoundCaptor";
-import { useSelector } from "react-redux";
 
 interface ITempHumCaptor {
     temperature: number;
@@ -20,47 +19,44 @@ export const Captors = () => {
     useEffect(() => {
         init();
     }, []);
-    const preferences = useSelector((state: any) => {
-        return state.notification.preferences;
-    });
-    useEffect(() => {
-        setTempData(preferences.TEMPERATURE);
-    }, [preferences]);
 
     const [temp, setTemp] = useState(0);
     const [humidity, setHumidity] = useState(0);
     const [luminosity, setLuminosity] = useState(0);
     const [sound, setSound] = useState(0);
-    const [tempData, setTempData] = useState(true);
 
     const bindEvents = () => {
         var win = window as any;
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
             if (localStorage.getItem("token")) {
-                // console.log(preferencesData);
+                let data: any = localStorage.getItem("metrics");
+                if (data) {
+                    data = JSON.parse(data);
+                }
                 if (value.temperature) {
+
                     localStorage.setItem("temperature", value.temperature.toString());
                     setTemp(value.temperature);
-                    if (tempData) {
+                    if (data.TEMPERATURE) {
                         http.post("/temperature", {value: value.temperature});
                     }
                 } if (value.humidity) {
                     localStorage.setItem("humidity", value.humidity.toString());
-                    if (tempData) {
+                    if (data.HUMIDITY) {
                         http.post("/humidity", {value: value.humidity});
                     }
                     setHumidity(value.humidity);
                 } if (value.luminosity) {
                     localStorage.setItem("luminosity", value.luminosity.toString());
                     setLuminosity(value.luminosity);
-                    if (tempData) {
+                    if (data.LUMINOSITY) {
                         http.post("/luminosity", {value: value.luminosity});
                     }
                 } if (value.sound) {
                     localStorage.setItem("sound", value.sound.toString());
                     setSound(value.sound);
-                    if (tempData) {
+                    if (data.SOUND) {
                         http.post("/sound", {value: value.sound});
                     }
                 }

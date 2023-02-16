@@ -26,4 +26,13 @@ export default class http {
         const res = await axios.delete(url, { params });
         return res.data;
     }
+
+    public static async stockMetrics(): Promise<any> {
+        let result = await http.get("/environment-metrics-preferences", "");
+        let data: any = {};
+        for (let i = 0; i < result.length; i++) {
+            data[result[i].metricType] = !result[i].isDesactivated;
+        }
+        localStorage.setItem("metrics", JSON.stringify(data));
+    }
 }

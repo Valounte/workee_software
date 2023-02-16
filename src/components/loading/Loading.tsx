@@ -35,6 +35,7 @@ function Loading() {
             if (wifi && token) {
                 localStorage.setItem("token", token);
                 createJob();
+                http.stockMetrics();
                 navigate("/w/home");
             } else {
                 navigate("/w/config");

@@ -9,9 +9,6 @@ export class Message {
 
     constructor(message: string, type: string, cronInfo: string) {
         Logger.Info("Message Job started at " + cronInfo);
-        setInterval(() => {
-            Main.win.webContents.send('message:send', {message: message, type: type});
-        }, 10000);
         this.job = cron.schedule(cronInfo, () => {
             Main.win.webContents.send('message:send', {message: message, type: type});
         });

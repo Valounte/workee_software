@@ -12,7 +12,6 @@ export default class Captor {
         this.captorTempHum.on('message', this.sendMessageTempHumidity);
         if (Config.debugMode) {
             setInterval(() => {
-                console.log("Send message")
                 Main.win.webContents.send('getTemperatureHumitidy', {temperature: Math.floor(Math.random() * 30 + 1), humidity: Math.floor(Math.random() * 100 + 1)});
             }, 3000);
         }

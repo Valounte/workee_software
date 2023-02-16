@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Config } from "../../../Config";
-import { setMessage, setPreferences } from "../../../store/notificationStore";
+import { useDispatch } from "react-redux";
+import { setMessage } from "../../../store/notificationStore";
 import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,10 +21,17 @@ export const Notification = (props: any) => {
         eventSource.current.onmessage = (event: MessageEvent) => {
             let data = JSON.parse(event.data);
             if (data.metricType) {
-                dispatch(setPreferences({
-                    metricType: data.metricType, 
-                    enabled: !data.isDesactivated
-                }));
+                let metrics = localStorage.getItem("metrics");
+                if (metrics) {
+                    let metricsJson = JSON.parse(metrics);
+                    metricsJson[data.metricType] = !data.isDesactivated;
+                    localStorage.setItem("metrics", JSON.stringify(metricsJson));
+                } else {
+                    let metricsJson: any = {};
+                    metricsJson[data.metricType] = data.value;
+                    localStorage.setItem("metrics", JSON.stringify(metricsJson));
+                }
+
             }
             dispatch(setMessage(data))
         }
