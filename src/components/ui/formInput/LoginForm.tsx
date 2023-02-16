@@ -9,6 +9,7 @@ import { Stack, Typography } from '@mui/material';
 import { Config } from '../../../Config';
 import { setTopic } from '../../../store/notificationStore';
 import { useDispatch } from 'react-redux';
+import http from '../../../utils/http/httpService';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
@@ -43,6 +44,7 @@ export const LoginForm = () => {
                     token = token.split(" ")[1];
                     dispatch(setTopic(Config.mercure.topic + "/" + token));
                     localStorage.setItem("token", response.data.token);
+                    http.stockMetrics();
                 }
                 navigate("/w/home");
             }).catch(function (error) {

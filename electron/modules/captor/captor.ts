@@ -13,7 +13,7 @@ export default class Captor {
         if (Config.debugMode) {
             setInterval(() => {
                 Main.win.webContents.send('getTemperatureHumitidy', {temperature: Math.floor(Math.random() * 30 + 1), humidity: Math.floor(Math.random() * 100 + 1)});
-            }, 60000);
+            }, 3000);
         }
     }
 

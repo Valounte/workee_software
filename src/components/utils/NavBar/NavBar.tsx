@@ -42,7 +42,8 @@ function NavBar() {
         let token = await win.api.getData("token");
         if (token) {
             token = token.split(" ")[1];
-            dispatch(setTopic(Config.mercure.topic + "/" + token));
+            await dispatch(setTopic(Config.mercure.topic + "notification/" + token));
+            await dispatch(setTopic(Config.mercure.topic + "metrics-preferences/" + token));
         }
         setInterval(() => {
             setDateNow(getDate());

@@ -29,19 +29,37 @@ export const Captors = () => {
         var win = window as any;
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
-            if (value.temperature && localStorage.getItem("token")) {
-                localStorage.setItem("temperature", value.temperature.toString());
-                localStorage.setItem("humidity", value.humidity.toString());
-                localStorage.setItem("luminosity", value.luminosity.toString());
-                localStorage.setItem("sound", value.sound.toString());
-                setTemp(value.temperature);
-                setHumidity(value.humidity);
-                setLuminosity(value.luminosity);
-                setSound(value.sound);
-                http.post("/temperature", {value: value.temperature});
-                http.post("/humidity", {value: value.humidity});
-                http.post("/luminosity", {value: value.luminosity});
-                http.post("/sound", {value: value.sound});
+            if (localStorage.getItem("token")) {
+                let data: any = localStorage.getItem("metrics");
+                if (data) {
+                    data = JSON.parse(data);
+                }
+                if (value.temperature) {
+
+                    localStorage.setItem("temperature", value.temperature.toString());
+                    setTemp(value.temperature);
+                    if (data.TEMPERATURE) {
+                        http.post("/temperature", {value: value.temperature});
+                    }
+                } if (value.humidity) {
+                    localStorage.setItem("humidity", value.humidity.toString());
+                    if (data.HUMIDITY) {
+                        http.post("/humidity", {value: value.humidity});
+                    }
+                    setHumidity(value.humidity);
+                } if (value.luminosity) {
+                    localStorage.setItem("luminosity", value.luminosity.toString());
+                    setLuminosity(value.luminosity);
+                    if (data.LUMINOSITY) {
+                        http.post("/luminosity", {value: value.luminosity});
+                    }
+                } if (value.sound) {
+                    localStorage.setItem("sound", value.sound.toString());
+                    setSound(value.sound);
+                    if (data.SOUND) {
+                        http.post("/sound", {value: value.sound});
+                    }
+                }
             }
         });
     };
