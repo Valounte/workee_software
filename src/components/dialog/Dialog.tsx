@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Config } from '../../Config';
 import './Dialog.css';
 import FeedBackDialog from './FeedBackDialog/FeedBackDialog';
 import InfoMessageDialog from './InfoMessageDialog/InfoMessageDialog';
+import TeaOrCoffeeDialog from './TeaOrCoffeeDialog/TeaOrCoffeeDialog';
 
 export interface IInfoMessage {
     message: string | null;
@@ -11,6 +13,7 @@ export interface IInfoMessage {
 function Dialog() {
 
     const [open, setOpen] = useState(false);
+    const [openTeaOrCoffee, setOpenTeaOrCoffee] = useState(true);
     const [messageList, setMessageList] = useState<Array<IInfoMessage>>([]);
 
     function readMessage(index: number) {
@@ -20,16 +23,29 @@ function Dialog() {
     async function init() {
         let win = window as any;
 
-        win.api.sendMessage((event: any, value: IInfoMessage) => {
+        win.api.sendMessage((_event: any, value: IInfoMessage) => {
             let newMessageList = [...messageList];
             newMessageList.push(value);
             setMessageList([...newMessageList]);
         });
 
-        win.api.launchFeedBack((event: any, value: any) => {
+        win.api.launchFeedBack((_event: any, _value: any) => {
             setOpen(true);
         });
     }
+
+    const url = useMemo(() => new URL(Config.mercure.teaOrCoffee), []);
+    let eventSource = useRef<EventSource>();
+
+    useEffect(() => {
+        if (eventSource.current) {
+            eventSource.current.close();
+        }
+        eventSource.current = new EventSource(url);
+        eventSource.current.onmessage = (event: MessageEvent) => {
+            setOpenTeaOrCoffee(true);
+        }
+    }, []);
 
     useEffect(() => {
         init();
@@ -43,6 +59,7 @@ function Dialog() {
     return (
         <div>
             {open && <FeedBackDialog open={open} setOpen={setOpen}/>}
+            {openTeaOrCoffee && <TeaOrCoffeeDialog open={openTeaOrCoffee} setOpen={setOpenTeaOrCoffee}/>}
             {messageList.map((message, index) => {
 
                 return (

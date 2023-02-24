@@ -44,6 +44,7 @@ function NavBar() {
             token = token.split(" ")[1];
             await dispatch(setTopic(Config.mercure.topic + "notification/" + token));
             await dispatch(setTopic(Config.mercure.topic + "metrics-preferences/" + token));
+            await dispatch(setTopic(Config.mercure.topic + "teaOrCoffee/" + token));
         }
         setInterval(() => {
             setDateNow(getDate());
