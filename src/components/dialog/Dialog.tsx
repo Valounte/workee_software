@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Config } from '../../Config';
+import EventsUtils from '../../utils/events';
 import './Dialog.css';
 import FeedBackDialog from './FeedBackDialog/FeedBackDialog';
 import InfoMessageDialog from './InfoMessageDialog/InfoMessageDialog';
@@ -13,7 +14,7 @@ export interface IInfoMessage {
 function Dialog() {
 
     const [open, setOpen] = useState(false);
-    const [openTeaOrCoffee, setOpenTeaOrCoffee] = useState(true);
+    const [openTeaOrCoffee, setOpenTeaOrCoffee] = useState(false);
     const [messageList, setMessageList] = useState<Array<IInfoMessage>>([]);
 
     function readMessage(index: number) {
@@ -34,21 +35,24 @@ function Dialog() {
         });
     }
 
-    const url = useMemo(() => new URL(Config.mercure.teaOrCoffee), []);
-    let eventSource = useRef<EventSource>();
+    // const url = useMemo(() => new URL(Config.mercure.teaOrCoffee), []);
+    // let eventSource = useRef<EventSource>();
 
-    useEffect(() => {
-        if (eventSource.current) {
-            eventSource.current.close();
-        }
-        eventSource.current = new EventSource(url);
-        eventSource.current.onmessage = (event: MessageEvent) => {
-            setOpenTeaOrCoffee(true);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (eventSource.current) {
+    //         eventSource.current.close();
+    //     }
+    //     eventSource.current = new EventSource(url);
+    //     eventSource.current.onmessage = (event: MessageEvent) => {
+    //         setOpenTeaOrCoffee(true);
+    //     }
+    // }, []);
 
     useEffect(() => {
         init();
+        EventsUtils.subscribe("notification", (data: any) => {
+            setOpenTeaOrCoffee(true);
+        });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
