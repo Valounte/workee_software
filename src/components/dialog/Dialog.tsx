@@ -15,6 +15,7 @@ function Dialog() {
 
     const [open, setOpen] = useState(false);
     const [openTeaOrCoffee, setOpenTeaOrCoffee] = useState(false);
+    const [name, setName] = useState("");
     const [messageList, setMessageList] = useState<Array<IInfoMessage>>([]);
 
     function readMessage(index: number) {
@@ -38,22 +39,16 @@ function Dialog() {
     useEffect(() => {
         init();
         EventsUtils.subscribe("notification", (data: any) => {
-            console.log(data);
-            if (data.type === "TeaOrCoffee") {
                 setOpenTeaOrCoffee(true);
-            }
+                setName(data.detail.name);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        console.log(messageList);
-    }, [messageList]);
-
     return (
         <div>
             {open && <FeedBackDialog open={open} setOpen={setOpen}/>}
-            {openTeaOrCoffee && <TeaOrCoffeeDialog open={openTeaOrCoffee} setOpen={setOpenTeaOrCoffee}/>}
+            {openTeaOrCoffee && <TeaOrCoffeeDialog open={openTeaOrCoffee} setOpen={setOpenTeaOrCoffee} name={name}/>}
             {messageList.map((message, index) => {
 
                 return (

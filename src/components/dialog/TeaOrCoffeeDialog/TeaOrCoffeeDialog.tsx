@@ -3,6 +3,7 @@ import { Button, Container, Dialog, DialogContentText, DialogTitle } from '../..
 
 interface ITeaOrCoffeeProps {
     open: boolean;
+    name: string;
     setOpen: (open: boolean) => void;
 }
 
@@ -14,7 +15,7 @@ function TeaOrCoffeeDialog(props: ITeaOrCoffeeProps) {
     return(
         <Dialog fullWidth={true} open={props.open}>
             <DialogTitle>
-                Tea Or Coffee ?
+                {props.name}
             </DialogTitle>
             <Container>
                 <DialogContentText>N'oubliez pas votre meeting dans 10 minutes !</DialogContentText>

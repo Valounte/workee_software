@@ -20,9 +20,14 @@ export const Notification = (props: any) => {
         url.searchParams.append("topic", props.config.topic);
         eventSource.current = new EventSource(url);
         eventSource.current.onmessage = (event: MessageEvent) => {
-            console.log(event);
             let data = JSON.parse(event.data);
-            EventsUtils.dispatch("notification", data);
+            switch (data.type) {
+                case "TeaOrCoffee":
+                    EventsUtils.dispatch("notification", data);
+                    return;
+                default:
+                    break;
+            }
             if (data.metricType) {
                 let metrics = localStorage.getItem("metrics");
                 if (metrics) {
