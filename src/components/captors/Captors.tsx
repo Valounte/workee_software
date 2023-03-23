@@ -30,9 +30,11 @@ export const Captors = () => {
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
             if (localStorage.getItem("token")) {
-                let data: any = localStorage.getItem("metrics");
-                if (data) {
+                let data: any = localStorage.getItem("metrics") || {};
+                try {
                     data = JSON.parse(data);
+                } catch (e) {
+                    data = {};
                 }
                 if (value.temperature) {
 

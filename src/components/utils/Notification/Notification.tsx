@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../../../store/notificationStore";
 import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import EventsUtils from "../../../utils/events";
 
 export const Notification = (props: any) => {
 
@@ -20,6 +21,13 @@ export const Notification = (props: any) => {
         eventSource.current = new EventSource(url);
         eventSource.current.onmessage = (event: MessageEvent) => {
             let data = JSON.parse(event.data);
+            switch (data.type) {
+                case "TeaOrCoffee":
+                    EventsUtils.dispatch("notification", data);
+                    return;
+                default:
+                    break;
+            }
             if (data.metricType) {
                 let metrics = localStorage.getItem("metrics");
                 if (metrics) {
