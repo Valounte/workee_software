@@ -35,23 +35,13 @@ function Dialog() {
         });
     }
 
-    // const url = useMemo(() => new URL(Config.mercure.teaOrCoffee), []);
-    // let eventSource = useRef<EventSource>();
-
-    // useEffect(() => {
-    //     if (eventSource.current) {
-    //         eventSource.current.close();
-    //     }
-    //     eventSource.current = new EventSource(url);
-    //     eventSource.current.onmessage = (event: MessageEvent) => {
-    //         setOpenTeaOrCoffee(true);
-    //     }
-    // }, []);
-
     useEffect(() => {
         init();
         EventsUtils.subscribe("notification", (data: any) => {
-            setOpenTeaOrCoffee(true);
+            console.log(data);
+            if (data.type === "TeaOrCoffee") {
+                setOpenTeaOrCoffee(true);
+            }
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
