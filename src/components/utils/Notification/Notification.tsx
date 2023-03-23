@@ -23,8 +23,12 @@ export const Notification = (props: any) => {
             let data = JSON.parse(event.data);
             switch (data.type) {
                 case "TeaOrCoffee":
-                    EventsUtils.dispatch("notification", data);
+                    EventsUtils.dispatch("TeaOrCoffee", data);
                     return;
+                case "feedback": {
+                    EventsUtils.dispatch("feedback", data);
+                    return;
+                }
                 default:
                     break;
             }
@@ -39,6 +43,7 @@ export const Notification = (props: any) => {
                     metricsJson[data.metricType] = data.value;
                     localStorage.setItem("metrics", JSON.stringify(metricsJson));
                 }
+                return;
 
             }
             dispatch(setMessage(data))

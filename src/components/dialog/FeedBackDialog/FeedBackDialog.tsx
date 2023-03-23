@@ -14,6 +14,7 @@ import http from '../../../utils/http/httpService';
 
 interface IFeedBackDialogProps {
     open: boolean;
+    teamId: number;
     setOpen: (open: boolean) => void;
 }
 
@@ -62,7 +63,7 @@ function FeedBackDialog(props: IFeedBackDialogProps) {
       }
 
     async function handleClick() {
-        let result = await http.post("/submit-daily-feedback", {satisfactionDegree: valueRating, isAnonymous: anonymous});
+        let result = await http.post("/submit-daily-feedback", {satisfactionDegree: valueRating, isAnonymous: anonymous, teamId: props.teamId});
         if (result.message) {
           props.setOpen(false);
         }
