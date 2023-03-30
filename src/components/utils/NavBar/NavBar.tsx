@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function NavBar() {
     const [dateNow, setDateNow] = useState(""),
+        [token, setToken] = useState(""),
         dispatch = useDispatch(),
         wifi = useSelector((state: any) => {
             return state.wifi;
@@ -25,15 +26,29 @@ function NavBar() {
     useEffect(() => {
         console.log(wifi);   
     }, [wifi]);
+    const getToken = async () => {
+        let win = window as any;
+        let token = await win.api.getData("token");
+        if (token) {
+            token = token.split(" ")[1];
+            setToken(token);
+            return;
+        }
+        setToken("");
+    }
+
     const getDate = () => {
         let date = new Date();
         let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
         let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+        getToken();
         return `${hour}:${minute}`;
     }
 
     const returnHome = () => {
-        navigate("/w/home")
+        if (token !== "") {
+            navigate("/w/home")
+        } 
     }
 
     const init = async () => {
@@ -42,6 +57,7 @@ function NavBar() {
         let token = await win.api.getData("token");
         if (token) {
             token = token.split(" ")[1];
+            setToken(token);
             await dispatch(setTopic(Config.mercure.topic + "notification/" + token));
             await dispatch(setTopic(Config.mercure.topic + "metrics-preferences/" + token));
             await dispatch(setTopic(Config.mercure.topic + "teaOrCoffee/" + token));
@@ -60,9 +76,10 @@ function NavBar() {
                     <img onClick={returnHome} src={Logo} alt="" className="d-inline-block align-text-top logoMenu"/>
                     
                     <ul className="navbar-nav mr-auto">
+                        {token !== "" &&
                         <li className="nav-item">
                             <UserIcon />
-                        </li>
+                        </li>}
                         <li className="nav-item">
                             {!wifi.connected === true &&
                                 <img src={WifiOff} alt="" className="d-inline-block align-text-top wifi"/>
@@ -72,9 +89,9 @@ function NavBar() {
                             }
                             
                         </li>
-                        <li className="nav-item">
+                        {token !== "" && <li className="nav-item">
                             <Bell/>
-                        </li>
+                        </li>}
                         <li className="nav-item">
                             <span className="date">{dateNow}</span>
                         </li>

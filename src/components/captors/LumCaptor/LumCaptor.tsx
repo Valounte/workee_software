@@ -36,7 +36,7 @@ export const LumCaptor = (props: IPropsLumCaptor) => {
                                 {tempType === 0 && <span className="material-symbols-outlined remove">remove</span>}
                             </Typography>
                             <Typography className="temperatureNumber">
-                                {!firstTemp && <span className="">{props.luminosity} <span className="unitSensor">%</span></span>}
+                                {!firstTemp && <span className="">{props.luminosity} <span className="unitSensor">lx</span></span>}
                                 {firstTemp && <span className="h5">Pas de donnée</span>}
                             </Typography>
                         </div>
