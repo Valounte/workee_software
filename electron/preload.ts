@@ -19,6 +19,7 @@ process.once("loaded", () => {
         launchFeedBack: (callback) => ipcRenderer.on('feedback:launch', callback),
         createFeedBack: (args) => ipcRenderer.invoke('feedback:create', args),
         sendMessage: (callback) => ipcRenderer.on('message:send', callback),
+        getLocalIp: (args) => ipcRenderer.invoke('wifi:getLocalIp', args),
         getLogout: (args) => ipcRenderer.invoke('login:logout', args)
     });
 });

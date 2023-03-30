@@ -3,6 +3,7 @@ import Command from "../../utils/Command";
 import Logger from "../../utils/Logger";
 import Data from "../data/Data";
 import { Config } from "../../config";
+import  { networkInterfaces } from 'os';
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -108,9 +109,20 @@ f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi(
         }
     }
 
+    public async getLocalIp() {
+        const interfaces = networkInterfaces();
+        try {
+            const ip = interfaces["wlan0"][0].address;
+            return ip;
+        } catch (e) {
+            return null;
+        }
+    }
+
     public initIpc(): void {
         ipcMain.handle("wifi:get", this.getWifi);
         ipcMain.handle("wifi:connect", this.connectWifi);
+        ipcMain.handle("wifi:getLocalIp", this.getLocalIp);
     }
 
     public getWifiList(): any {
