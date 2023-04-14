@@ -56,12 +56,10 @@ export default class WiFi {
     private async getWifi() {
         const wifiAvailableList = [];
         let wifiscan = (Config.isWindows) ? `bssid / frequency / signal level / flags / ssid
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman111
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman11
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman1
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman3
-f8:1a:67:78:4b:af	2462	-34	[WPA2-PSK-CCMP][ESS]	buhman2`: await WiFi.launchWifi();
+f8:1a:67:78:4b:af	2462	-10	[WPA2-PSK-CCMP][ESS]	IONIS
+f8:1a:67:78:4b:af	2462	-13	[WPA2-PSK-CCMP][ESS]	Bbox
+f8:1a:67:78:4b:af	2462	-15	[WPA2-PSK-CCMP][ESS]	SFR-WifiFon
+f8:1a:67:78:4b:af	2462	-80	[WPA2-PSK-CCMP][ESS]	buhman1`: await WiFi.launchWifi();
         
         
         wifiscan = wifiscan.replace(/\t/g, " ");

@@ -1,24 +1,47 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Login from "../../login/Login";
 import { Button } from "../../ui/button/Button";
 import './Configuration.css';
 import Wifi from "./wifi/Wifi";
 
-const steps = ['Configuration', 'Wifi', 'Create an ad'];
+const steps = ['Configuration', 'Wifi', 'Connexion'];
 
 function Configuration() {
     const [state, setState] = useState(-1);
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
-    const nextState = () => {
+    const nextState = async () => {
+        console.log(state);
         setActiveStep(activeStep + 1);
         setState(state + 1);
+        if (state === 0) {
+            let win = window as any;
+            let token = await win.api.getData("token");
+            if (token) {
+                navigate("/w/home");
+                return;
+            }
+        }
         if (state === 1) {
             navigate("/w/login");
         }
     }
+
+    const init = async () => {
+        var win = window as any;
+        let wifi = await win.api.getData("wifi");
+        if (wifi.ssid !== "") {
+            navigate("/w/login");
+            return;
+        }
+
+    }
+
+    useEffect(() => {
+        init();
+    }, []);
 
     const undoState = () => {
         setState(state - 1);
@@ -47,7 +70,7 @@ function Configuration() {
                             <div className="h1">Configuration</div>
                             <p>Pour utiliser Workee, vous avez besoin de configurer votre appareil.</p>
                             <p>Cliquez sur "Commencer" pour démarrer la configuration.</p>
-                            <Button click={nextState} type="workee">Configurer</Button>
+                            <Button click={nextState} type="workee">Commencer</Button>
                         </div>
                     </div>
                 );
