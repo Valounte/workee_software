@@ -30,7 +30,7 @@ function NavBar() {
     const getToken = async () => {
         let win = window as any;
         let token = await win.api.getData("token");
-        setIp(await win.api.getLocalIp("ip"));
+        // setIp(await win.api.getLocalIp("ip"));
         if (token) {
             token = token.split(" ")[1];
             setToken(token);
