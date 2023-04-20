@@ -4,8 +4,5 @@
 }
 
 .ipPrint {
-    position: absolute;
-    left: 10;
-    bottom: 0;
     font-size: 9px;
 }
