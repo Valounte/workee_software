@@ -111,7 +111,6 @@ f8:1a:67:78:4b:af	2462	-80	[WPA2-PSK-CCMP][ESS]	buhman1`: await WiFi.launchWifi(
         const interfaces = networkInterfaces();
         try {
             const ip = interfaces["wlan0"][0].address;
-            Logger.Info("Local IP: " + ip);
             return ip;
         } catch (e) {
             return null;
