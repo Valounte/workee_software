@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 function NavBar() {
     const [dateNow, setDateNow] = useState(""),
         [token, setToken] = useState(""),
-        [ip, setIp] = useState(""),
         dispatch = useDispatch(),
         wifi = useSelector((state: any) => {
             return state.wifi;
@@ -30,7 +29,6 @@ function NavBar() {
     const getToken = async () => {
         let win = window as any;
         let token = await win.api.getData("token");
-        // setIp(await win.api.getLocalIp("ip"));
         if (token) {
             token = token.split(" ")[1];
             setToken(token);
@@ -90,7 +88,6 @@ function NavBar() {
                             {wifi.connected === true &&
                                 <img src={WifiOn} alt="" className="d-inline-block align-text-top wifi"/>
                             }
-                            {ip}
                             
                         </li>
                         {token !== "" && <li className="nav-item">

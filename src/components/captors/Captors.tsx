@@ -24,9 +24,14 @@ export const Captors = () => {
     const [humidity, setHumidity] = useState(0);
     const [luminosity, setLuminosity] = useState(0);
     const [sound, setSound] = useState(0);
+    const [ip, setIp] = useState("IP");
 
     const bindEvents = () => {
         var win = window as any;
+
+        setInterval(async () => {
+            setIp(await win.api.getLocalIp("ip") || "IP");
+        }, 1000);
 
         win.api.getTemperatureHumitidy((event: any, value: ITempHumCaptor) => {
             if (localStorage.getItem("token")) {
@@ -93,6 +98,7 @@ export const Captors = () => {
                     <SoundCaptor sound={sound}/>
                 </Grid>
             </Grid>
+            <span className="ipPrint">{ip}</span>
         </div>
     )
 }

@@ -21,8 +21,8 @@ export default class Captor {
         var obj;
         try {
             obj = JSON.parse(message);
-            obj.luminosity = Math.floor(Math.random() * (300 - 200 + 1) + 200);
-            obj.sound = Math.floor(Math.random() * (81 - 30 + 1) + 30);
+            obj.luminosity = Math.floor(Math.random() * (380 + 1) + 350);
+            obj.sound = Math.floor(Math.random() * (65 + 1) + 50);
             Main.win.webContents.send('getTemperatureHumitidy', obj);
             console.log(obj);
         } catch (e) {
